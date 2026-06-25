@@ -1,10 +1,12 @@
 import { Mail, Phone, AtSign } from "lucide-react";
 
 export default function Footer() {
+  const date = new Date();
+  const year = date.getFullYear();
   return (
     <footer className="px-8 py-12 md:px-16 md:py-20">
       {/* Big floating card */}
-      <div className="mx-auto max-w-7xl rounded-[28px] bg-[#F2F2F2] px-10 py-12 md:px-14 md:py-16">
+      <div className="mx-auto max-w-7xl border border-[#f2f2f2] rounded-[28px] px-10 py-12 md:px-14 md:py-16">
         {/* Top section */}
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           {/* LEFT */}
@@ -140,7 +142,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-14 flex flex-col gap-4 border-t border-[#DDD] pt-8 text-sm md:flex-row md:justify-between">
           <p className="text-[#555]">
-            Copyright © 2026{" "}
+            Copyright © {year}{" "}
             <span className="font-semibold text-[#2B2B2B]">Boraland.</span> All
             rights reserved.
           </p>
