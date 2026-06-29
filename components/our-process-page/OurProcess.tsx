@@ -62,7 +62,7 @@ function ProcessCard({
 
 export default function ProcessTimelineSection() {
   return (
-    <section className="bg-[#F7F7F7] px-6 py-24 md:px-12 lg:px-20">
+    <section className="px-6 py-24 md:px-12 lg:px-20">
       <div className="mx-auto max-w-7xl">
         {/* section heading */}
         <div className="mb-20 text-center">

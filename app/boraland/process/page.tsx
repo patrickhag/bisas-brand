@@ -1,4 +1,5 @@
-import ProcessSection from "@/components/our-process-page/OurProcess";
+import ProcessFlow from "@/components/our-process-page/ProcessFlow";
+import { ProjectHeader } from "@/components/ProjectHeader";
 import SeriousProjectsSection from "@/components/SeriousProjectsSection";
 import IntroSection from "@/components/ui/IntroSection";
 
@@ -13,7 +14,8 @@ export default function ServicesPage() {
         ]}
         ctaLabel="Request for a Service"
       />
-      <ProcessSection />
+      <ProjectHeader />
+      <ProcessFlow />
       <SeriousProjectsSection />
     </>
   );

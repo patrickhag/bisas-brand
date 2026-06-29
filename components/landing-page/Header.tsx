@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "About Us", href: "/boraland/about-us" },
@@ -14,6 +15,7 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <nav className="flex items-center justify-between px-8 py-5 z-10 relative bg-white">
@@ -47,7 +49,10 @@ export default function Header() {
       </div>
 
       {/* CTA Button */}
-      <button className="group text-sm tracking-wide px-5 py-3 h-auto rounded-xl bg-[#2C2C2C] text-[#F3DC8E] cursor-pointer inline-flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+      <button
+        className="group text-sm tracking-wide px-5 py-3 h-auto rounded-xl bg-[#2C2C2C] text-[#F3DC8E] cursor-pointer inline-flex items-center gap-1.5 hover:opacity-80 transition-opacity"
+        onClick={() => router.push("/boraland/contact-us")}
+      >
         Contact Us Now
         <ArrowUpRight
           size={15}

@@ -1,3 +1,4 @@
+import { ProjectHeader } from "@/components/ProjectHeader";
 import SeriousProjectsSection from "@/components/SeriousProjectsSection";
 import SelectedProjectsSection from "@/components/projects-page/SelectedProjects";
 import IntroSection from "@/components/ui/IntroSection";
@@ -13,6 +14,7 @@ export default function ServicesPage() {
         ]}
         ctaLabel="Request a Consultation"
       />
+      <ProjectHeader />
       <SelectedProjectsSection />
       <SeriousProjectsSection />
     </>
