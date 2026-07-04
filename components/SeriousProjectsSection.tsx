@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "./ui/button";
+import { CallToButton } from "./CallToAction";
 
 export default function SeriousProjectsSection() {
   return (
@@ -26,13 +27,7 @@ export default function SeriousProjectsSection() {
           Serious Projects Begin With Clarity.
         </h1>
 
-        <Button variant={"accent"} size={"xl"} className="my-10 cursor-pointer">
-          Start Your Project Conversation
-          <ArrowUpRight
-            size={20}
-            className="text-[#8B7355] group-hover:animate-bounce-once"
-          />
-        </Button>
+        <CallToButton ctaLabel="Request a Consultation" />
       </div>
     </section>
   );

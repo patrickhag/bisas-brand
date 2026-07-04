@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
 
 const navLinks = [
   { label: "About Us", href: "/boraland/about-us" },
@@ -16,9 +17,33 @@ const navLinks = [
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollingUp = currentScrollY < lastScrollY.current;
+
+      if (scrollingUp && !visible) {
+        setVisible(true);
+      } else if (!scrollingUp && currentScrollY > 50 && visible) {
+        setVisible(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [visible]);
 
   return (
-    <nav className="flex items-center justify-between px-8 py-5 z-10 relative bg-white">
+    <nav
+      className={`sticky top-0 flex items-center justify-between px-8 py-5 z-50 bg-white/70 backdrop-blur-xl transition-transform duration-300 ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       {/* Logo */}
       <div className="flex items-center">
         <Link className="w-10 h-10" href={"/"}>

@@ -1,67 +1,64 @@
-import { ArrowUpRight, MoveDownRight } from "lucide-react";
+"use client";
+
+import { useState, useEffect } from "react";
+import { ArrowUpRight, MoveDownRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 
-const services = [
-  {
-    title: "Client Representation",
-    description:
-      "Professional on-ground oversight for clients building in Rwanda, including diaspora investors.",
-    image: "/images/house-1.png",
-    bg: "bg-[#F2F2F2]",
-  },
-  {
-    title: "Pre-Construction Advisory",
-    description:
-      "Feasibility and planning services that bring clarity before major financial commitments.",
-    image: "/images/house-2.png",
-    bg: "bg-[#E8E9D8]",
-    featured: true,
-  },
-  {
-    title: "Design & Build",
-    description:
-      "End-to-end construction for a limited number of premium projects with defined scope and budgets.",
-    image: "/images/house-3.png",
-    bg: "bg-[#DCEBE4]",
-  },
-];
-
-type Service = {
-  title: string;
+type DbService = {
+  id: string;
+  name: string;
+  image: string | null;
   description: string;
-  image: string;
-  bg: string;
-  featured?: boolean;
 };
 
-function ServiceCard({ service }: { service: Service }) {
+const cardStyles = [
+  { bg: "bg-[#F2F2F2]", featured: false },
+  { bg: "bg-[#E8E9D8]", featured: true },
+  { bg: "bg-[#DCEBE4]", featured: false },
+];
+
+function ServiceCard({
+  service,
+  index,
+}: {
+  service: DbService;
+  index: number;
+}) {
+  const style = cardStyles[index % cardStyles.length];
+
   return (
     <div
       className={`flex flex-col ${
-        service.featured ? "-translate-y-7.5" : "translate-y-10"
+        style.featured ? "-translate-y-7.5" : "translate-y-10"
       }`}
     >
       {/* Image card */}
       <div
-        className={`relative w-82.5 h-63.75 ${service.bg} flex items-center justify-center`}
+        className={`relative w-82.5 h-63.75 ${style.bg} flex items-center justify-center`}
       >
         <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#2D2D2D] text-[#D9C06E] flex items-center justify-center text-lg">
           <ArrowUpRight />
         </button>
 
-        <Image
-          src={service.image}
-          alt={service.title}
-          className="max-w-60 object-contain"
-          width={240}
-          height={157}
-        />
+        {service.image ? (
+          <Image
+            src={service.image}
+            alt={service.name}
+            className="max-w-60 object-contain"
+            width={240}
+            height={157}
+          />
+        ) : (
+          <span className="text-6xl font-bold text-[#2D2D2D]/20">
+            {service.name.charAt(0)}
+          </span>
+        )}
       </div>
 
       {/* Text */}
       <div className="mt-5">
         <h3 className="text-[22px] font-semibold text-[#2D2D2D]">
-          {service.title}
+          {service.name}
         </h3>
 
         <p className="mt-2 text-[16px] italic text-[#3F3F3F] max-w-[320px]">
@@ -73,6 +70,26 @@ function ServiceCard({ service }: { service: Service }) {
 }
 
 export default function ServicesSection() {
+  const [services, setServices] = useState<DbService[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await fetch("/api/services");
+        if (res.ok) {
+          const data = await res.json();
+          setServices(data.services);
+        }
+      } catch {
+        // silently fail — show empty state
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
+
   return (
     <section className="bg-[#ECECEC] min-h-screen py-24 px-6">
       <div className="max-w-7xl mx-auto">
@@ -95,11 +112,24 @@ export default function ServicesSection() {
         </div>
 
         {/* Cards */}
-        <div className="flex flex-col lg:flex-row justify-center items-start gap-10 lg:gap-16">
-          {services.map((service, index) => (
-            <ServiceCard key={index} service={service} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="flex items-center gap-2 text-[#6A6A6A]">
+              <Loader2 size={18} className="animate-spin" />
+              <span className="font-mono text-sm">Loading services...</span>
+            </div>
+          </div>
+        ) : services.length === 0 ? (
+          <p className="text-center text-[#7B7B7B] font-mono text-sm">
+            No services available yet.
+          </p>
+        ) : (
+          <div className="flex flex-col lg:flex-row justify-center items-start gap-10 lg:gap-16">
+            {services.map((service, index) => (
+              <ServiceCard key={service.id} service={service} index={index} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

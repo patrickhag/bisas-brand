@@ -70,7 +70,7 @@ export default function ApproachSection() {
       <div className="mx-auto max-w-7xl">
         {/* heading */}
         <div className="mb-20 flex justify-center items-center gap-8">
-          <Button variant="accent" size="xl">
+          <Button variant="secondary">
             VALUES
             <ArrowUpRight
               size={20}
