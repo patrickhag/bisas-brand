@@ -13,6 +13,7 @@ import {
   AlertDialogClose,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import Image from "next/image";
 
 const links = [
   {
@@ -48,10 +49,14 @@ export default function AdminSidebar() {
         {/* logo */}
         <div className="border-b border-[#3A3A3A] px-6 py-7">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#E4CC72] flex items-center justify-center text-[#2C2C2C] font-bold">
-              B
-            </div>
-
+            <Link className="w-10 h-10" href={"/"}>
+              <Image
+                src={"/logo.svg"}
+                alt="Bora-land logo"
+                width={"400"}
+                height={"400"}
+              />
+            </Link>
             <div>
               <h2 className="text-lg font-semibold">Boraland</h2>
               <p className="font-mono text-xs text-gray-400">ADMIN</p>

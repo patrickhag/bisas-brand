@@ -4,6 +4,7 @@ import HeroSection from "@/components/landing-page/HeroSection";
 import ServicesSection from "@/components/landing-page/ServiceCard";
 import GallerySection from "@/components/landing-page/GallerySection";
 import AudienceSection from "@/components/landing-page/AudienceSection";
+import WhyClientsChooseSection from "@/components/landing-page/WhyClientsChooseSection";
 import Footer from "@/components/landing-page/Footer";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <ServicesSection />
       <GallerySection />
       <AudienceSection />
+      <WhyClientsChooseSection />
       <Footer />
     </div>
   );

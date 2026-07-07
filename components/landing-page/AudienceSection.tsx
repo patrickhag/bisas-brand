@@ -1,4 +1,5 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { RedirectButton } from "../RedirectButton";
 
 const audiences = [
   {
@@ -64,10 +65,7 @@ export default function AudienceSection() {
         {/* top section */}
         <div className="flex flex-col items-center">
           {/* badge */}
-          <button className="px-8 py-4 rounded-full bg-[#D9C36F] text-[#2B2B2B] flex items-center gap-2 text-sm">
-            Expertise
-            <ArrowUpRight size={15} />
-          </button>
+          <RedirectButton text="Expertise" IconType={ArrowDownRight} />
 
           {/* heading */}
           <div className="mt-8 text-center">

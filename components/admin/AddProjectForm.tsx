@@ -16,6 +16,7 @@ type Project = {
   description: string;
   cost: string;
   address: string;
+  isFeatured: boolean;
 };
 
 type AddProjectFormProps = {
@@ -38,6 +39,9 @@ export default function AddProjectForm({
   const [description, setDescription] = useState(editProject?.description ?? "");
   const [cost, setCost] = useState(editProject?.cost ?? "");
   const [address, setAddress] = useState(editProject?.address ?? "");
+  const [isFeatured, setIsFeatured] = useState(
+    editProject?.isFeatured ?? false,
+  );
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(editProject?.tags ?? []);
   const [isLoading, setIsLoading] = useState(false);
@@ -97,6 +101,7 @@ export default function AddProjectForm({
           description: description.trim(),
           cost: cost.trim(),
           address: address.trim(),
+          isFeatured,
         }),
       });
 
@@ -224,6 +229,26 @@ export default function AddProjectForm({
             placeholder="e.g. Kigali, Rwanda"
             className="w-full rounded-full border border-gray-200 bg-[#F9F9F9] px-5 py-3 font-mono text-sm text-[#2C2C2C] outline-none transition-colors placeholder:text-gray-400 focus:border-[#E4CC72]"
           />
+        </div>
+
+        {/* Featured */}
+        <div className="rounded-2xl border border-gray-200 bg-[#F9F9F9] p-4">
+          <label className="flex cursor-pointer items-center justify-between gap-5">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-wider text-gray-500">
+                Featured Project
+              </span>
+              <p className="mt-1 font-mono text-xs text-gray-400">
+                Show this project as the large feature on the landing gallery.
+              </p>
+            </div>
+            <input
+              type="checkbox"
+              checked={isFeatured}
+              onChange={(e) => setIsFeatured(e.target.checked)}
+              className="size-5 accent-[#E4CC72]"
+            />
+          </label>
         </div>
 
         {/* Images Upload */}

@@ -60,7 +60,10 @@ function RequirementCard({ item }: { item: TItem }) {
 
 export default function ThirdServiceSection() {
   return (
-    <section className="bg-[#2B2B2B] px-6 py-20 md:px-12 lg:px-20">
+    <section
+      id="design-build"
+      className="scroll-mt-24 bg-[#2B2B2B] px-6 py-20 md:px-12 lg:px-20"
+    >
       <div className="mx-auto max-w-7xl">
         {/* HEADER */}
         <div className="flex flex-col items-center">

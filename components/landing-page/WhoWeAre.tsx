@@ -1,27 +1,26 @@
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ArrowDownRight } from "lucide-react";
+import { RedirectButton } from "../RedirectButton";
 
 export default function whoWeAreSection() {
   return (
-    <section className="relative min-h-screen bg-[#262626] overflow-hidden flex items-center justify-center px-6">
+    <section className="relative isolate min-h-screen bg-[#2C2C2C] overflow-hidden flex items-center justify-center px-6">
       {/* Background watermark */}
-      {/* <div
-        className="absolute inset-0 pointer-events-none"
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 pointer-events-none"
         style={{
           backgroundImage: "url(/images/bora-land-watermark.png)",
-          backgroundSize: "contain",
+          backgroundSize: "min(82vw, 980px) auto",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          opacity: 0.06,
+          opacity: 0.08,
         }}
-      /> */}
+      />
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
         {/* Top button */}
-        <button className="mb-10 px-7 py-3 rounded-full bg-[#D8C07A] text-black text-sm tracking-wide font-medium uppercase flex items-center gap-2 hover:opacity-90 transition">
-          What We Do
-          <span>↗</span>
-        </button>
+        <RedirectButton text="What we do" IconType={ArrowDownRight} />
 
         {/* Main heading */}
         <h1 className="font-mono text-white text-4xl md:text-6xl leading-tight max-w-4xl">
@@ -55,7 +54,7 @@ export default function whoWeAreSection() {
         </p>
 
         {/* Bottom arrow */}
-        <button className="mt-16 w-14 h-14 rounded-full border border-[#D8C07A] flex items-center justify-center text-[#D8C07A] hover:bg-[#D8C07A]/10 transition animate-bounce">
+        <button className="mt-16 w-12 h-12 rounded-full backdrop-blur-xl border border-[#D8C07A] flex items-center justify-center text-[#D8C07A] hover:bg-[#D8C07A]/10 transition animate-bounce">
           <ArrowDown />
         </button>
       </div>

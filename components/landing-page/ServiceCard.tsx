@@ -1,15 +1,49 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ArrowUpRight, MoveDownRight, Loader2 } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { RedirectButton } from "../RedirectButton";
 
 type DbService = {
   id: string;
   name: string;
   image: string | null;
   description: string;
+  sectionId: string;
 };
+
+const services = [
+  {
+    id: "asdf123",
+    name: "Client Representation",
+    description:
+      "Professional on-ground oversight for clients building in Rwanda, including diaspora investors.",
+    image: "/images/house-1.png",
+    sectionId: "client-representation",
+    bg: "bg-[#F2F2F2]",
+  },
+  {
+    id: "asdf124",
+    name: "Pre-Construction Advisory",
+    description:
+      "Feasibility and planning services that bring clarity before major financial commitments.",
+    image: "/images/house-2.png",
+    sectionId: "pre-construction-advisory",
+    bg: "bg-[#E8E9D8]",
+    featured: true,
+  },
+  {
+    id: "asdf125",
+    name: "Design & Build",
+    description:
+      "End-to-end construction for a limited number of premium projects with defined scope and budgets.",
+    image: "/images/house-3.png",
+    sectionId: "design-build",
+    bg: "bg-[#DCEBE4]",
+  },
+];
 
 const cardStyles = [
   { bg: "bg-[#F2F2F2]", featured: false },
@@ -25,26 +59,42 @@ function ServiceCard({
   index: number;
 }) {
   const style = cardStyles[index % cardStyles.length];
+  const router = useRouter();
+  const [isIconAnimating, setIsIconAnimating] = useState(false);
+
+  const handleServiceClick = () => {
+    setIsIconAnimating(true);
+
+    window.setTimeout(() => {
+      router.push(`/boraland/our-services#${service.sectionId}`);
+    }, 220);
+  };
 
   return (
-    <div
+    <button
+      type="button"
+      onClick={handleServiceClick}
       className={`flex flex-col ${
         style.featured ? "-translate-y-7.5" : "translate-y-10"
-      }`}
+      } text-left cursor-pointer group`}
     >
       {/* Image card */}
       <div
         className={`relative w-82.5 h-63.75 ${style.bg} flex items-center justify-center`}
       >
-        <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#2D2D2D] text-[#D9C06E] flex items-center justify-center text-lg">
-          <ArrowUpRight />
-        </button>
+        <span className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#2D2D2D] text-[#D9C06E] flex items-center justify-center text-lg transition-transform duration-300 group-hover:scale-110">
+          <ArrowUpRight
+            className={isIconAnimating ? "animate-service-icon-shot" : ""}
+          />
+        </span>
 
         {service.image ? (
           <Image
             src={service.image}
             alt={service.name}
-            className="max-w-60 object-contain"
+            className={`max-w-60 object-contain transition-transform duration-300 ease-out group-hover:scale-110 ${
+              isIconAnimating ? "scale-110" : ""
+            }`}
             width={240}
             height={157}
           />
@@ -65,40 +115,20 @@ function ServiceCard({
           {service.description}
         </p>
       </div>
-    </div>
+    </button>
   );
 }
 
 export default function ServicesSection() {
-  const [services, setServices] = useState<DbService[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const res = await fetch("/api/services");
-        if (res.ok) {
-          const data = await res.json();
-          setServices(data.services);
-        }
-      } catch {
-        // silently fail — show empty state
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchServices();
-  }, []);
-
   return (
     <section className="bg-[#ECECEC] min-h-screen py-24 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Top heading */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-20">
-          <button className="px-8 py-4 rounded-full bg-[#D9C06E] text-[#2D2D2D] text-sm font-medium flex items-center gap-2">
-            Services Overview
-            <MoveDownRight size={15} />
-          </button>
+          <RedirectButton
+            text={"Services Overview"}
+            IconType={ArrowDownRight}
+          />
 
           <div className="text-center md:text-left">
             <h2 className="text-[48px] leading-none text-[#2D2D2D]">
@@ -112,24 +142,12 @@ export default function ServicesSection() {
         </div>
 
         {/* Cards */}
-        {isLoading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="flex items-center gap-2 text-[#6A6A6A]">
-              <Loader2 size={18} className="animate-spin" />
-              <span className="font-mono text-sm">Loading services...</span>
-            </div>
-          </div>
-        ) : services.length === 0 ? (
-          <p className="text-center text-[#7B7B7B] font-mono text-sm">
-            No services available yet.
-          </p>
-        ) : (
-          <div className="flex flex-col lg:flex-row justify-center items-start gap-10 lg:gap-16">
-            {services.map((service, index) => (
-              <ServiceCard key={service.id} service={service} index={index} />
-            ))}
-          </div>
-        )}
+
+        <div className="flex flex-col lg:flex-row justify-center items-start gap-10 lg:gap-16">
+          {services.map((service, index) => (
+            <ServiceCard key={service.id} service={service} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   );

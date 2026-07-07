@@ -1,4 +1,4 @@
-import { pgTable, text, pgEnum } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, pgEnum } from "drizzle-orm/pg-core";
 
 export const projectStatusEnum = pgEnum("project_status", [
   "published",
@@ -17,6 +17,7 @@ export const projects = pgTable("projects", {
   description: text("description").notNull().default(""),
   cost: text("cost").notNull().default(""),
   address: text("address").notNull().default(""),
+  isFeatured: boolean("is_featured").notNull().default(false),
 });
 
 export const services = pgTable("services", {

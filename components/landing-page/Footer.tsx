@@ -1,4 +1,5 @@
 import { Mail, Phone, AtSign } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   const date = new Date();
@@ -13,12 +14,13 @@ export default function Footer() {
           <div className="space-y-6">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              {/* Replace with your logo */}
-              <img
-                src="/logo.svg"
-                alt="logo"
-                className="h-12 w-12 object-contain"
-              />
+              <Link href={"/"}>
+                <img
+                  src="/logo.svg"
+                  alt="logo"
+                  className="h-12 w-12 object-contain"
+                />
+              </Link>
 
               <span className="text-xl font-semibold text-[#2B2B2B]">
                 BORALAND

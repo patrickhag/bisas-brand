@@ -10,13 +10,27 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, images, category, status, tags, description, cost, address } = body;
+    const {
+      name,
+      images,
+      category,
+      status,
+      tags,
+      description,
+      cost,
+      address,
+      isFeatured,
+    } = body;
 
     if (!name || !category) {
       return NextResponse.json(
         { error: "Name and category are required" },
         { status: 400 },
       );
+    }
+
+    if (isFeatured) {
+      await db.update(projects).set({ isFeatured: false });
     }
 
     const [updated] = await db
@@ -30,6 +44,7 @@ export async function PATCH(
         description: description || "",
         cost: cost || "",
         address: address || "",
+        isFeatured: Boolean(isFeatured),
       })
       .where(eq(projects.id, id))
       .returning();

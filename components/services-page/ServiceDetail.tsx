@@ -2,7 +2,10 @@ import { MoveRight, Minus } from "lucide-react";
 
 export default function ServiceDetailSection() {
   return (
-    <section className="bg-[#2B2B2B] px-6 py-20 md:px-12 lg:px-20">
+    <section
+      id="client-representation"
+      className="scroll-mt-24 bg-[#2B2B2B] px-6 py-20 md:px-12 lg:px-20"
+    >
       <div className="mx-auto max-w-7xl">
         {/* Top Header */}
         <div className="flex flex-col items-center">

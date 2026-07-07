@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Search, Pencil, Trash2, Loader2 } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, Loader2, Star } from "lucide-react";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import {
   AlertDialog,
@@ -25,6 +25,7 @@ type Project = {
   description: string;
   cost: string;
   address: string;
+  isFeatured: boolean;
 };
 
 // ─── Component ──────────────────────────────────
@@ -41,13 +42,19 @@ export default function PortfolioAdminDashboard() {
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
+  const loadProjects = async () => {
+    const res = await fetch("/api/projects");
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return data.projects as Project[];
+  };
+
   const fetchProjects = async () => {
-    setIsLoading(true);
     try {
-      const res = await fetch("/api/projects");
-      if (res.ok) {
-        const data = await res.json();
-        setProjects(data.projects);
+      const nextProjects = await loadProjects();
+      if (nextProjects) {
+        setProjects(nextProjects);
       }
     } catch {
       // silently fail — table will show empty
@@ -57,12 +64,34 @@ export default function PortfolioAdminDashboard() {
   };
 
   useEffect(() => {
-    fetchProjects();
+    let isMounted = true;
+
+    const loadInitialProjects = async () => {
+      try {
+        const nextProjects = await loadProjects();
+        if (isMounted && nextProjects) {
+          setProjects(nextProjects);
+        }
+      } catch {
+        // silently fail — table will show empty
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadInitialProjects();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleProjectSaved = () => {
     setIsSheetOpen(false);
     setEditingProject(null);
+    setIsLoading(true);
     fetchProjects();
   };
 
@@ -91,6 +120,7 @@ export default function PortfolioAdminDashboard() {
       }
 
       setDeletingProject(null);
+      setIsLoading(true);
       fetchProjects();
     } catch (err) {
       console.error("Delete failed:", err);
@@ -382,6 +412,7 @@ export default function PortfolioAdminDashboard() {
                 <th>PROJECT</th>
                 <th>CATEGORY</th>
                 <th>STATUS</th>
+                <th>FEATURED</th>
                 <th>TAGS</th>
                 <th></th>
               </tr>
@@ -390,7 +421,7 @@ export default function PortfolioAdminDashboard() {
             <tbody>
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="p-10 text-center">
+                  <td colSpan={7} className="p-10 text-center">
                     <div className="flex items-center justify-center gap-2 text-[#6A6A6A]">
                       <Loader2 size={18} className="animate-spin" />
                       <span className="font-mono text-sm">
@@ -402,7 +433,7 @@ export default function PortfolioAdminDashboard() {
               ) : filteredProjects.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={6}
+                    colSpan={7}
                     className="p-10 text-center font-mono text-sm text-[#6A6A6A]"
                   >
                     {searchQuery || selectedCategory || selectedStatus
@@ -448,6 +479,17 @@ export default function PortfolioAdminDashboard() {
                       >
                         {project.status === "published" ? "Published" : "Draft"}
                       </span>
+                    </td>
+
+                    <td>
+                      {project.isFeatured ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F5F0D6] px-3 py-1 text-xs font-medium text-[#9C7D00]">
+                          <Star size={12} fill="currentColor" />
+                          Featured
+                        </span>
+                      ) : (
+                        <span className="text-gray-300">—</span>
+                      )}
                     </td>
 
                     <td>

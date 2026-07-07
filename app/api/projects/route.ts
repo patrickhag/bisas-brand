@@ -5,13 +5,27 @@ import { projects } from "@/db/schema";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, images, category, status, tags, description, cost, address } = body;
+    const {
+      name,
+      images,
+      category,
+      status,
+      tags,
+      description,
+      cost,
+      address,
+      isFeatured,
+    } = body;
 
     if (!name || !category) {
       return NextResponse.json(
         { error: "Name and category are required" },
         { status: 400 },
       );
+    }
+
+    if (isFeatured) {
+      await db.update(projects).set({ isFeatured: false });
     }
 
     const [project] = await db
@@ -25,6 +39,7 @@ export async function POST(request: Request) {
         description: description || "",
         cost: cost || "",
         address: address || "",
+        isFeatured: Boolean(isFeatured),
       })
       .returning();
 

@@ -150,6 +150,27 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
+  }
+}
+
+@layer utilities {
+  @keyframes service-icon-shot {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    55% {
+      transform: translate(8px, -8px) scale(1.2);
+      opacity: 0.75;
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-service-icon-shot {
+    animation: service-icon-shot 220ms ease-out both;
   }
 }
