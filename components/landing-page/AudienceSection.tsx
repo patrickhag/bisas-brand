@@ -53,11 +53,16 @@ function AudienceCard({ item }: { item: TAudience }) {
 export default function AudienceSection() {
   return (
     <section className="relative min-h-screen bg-[#2B2B2B] overflow-hidden px-8 py-20">
-      {/* ===== WATERMARK IMAGE PLACEHOLDER ===== */}
-      {/* Replace this with your actual watermark image */}
-      <div className="absolute inset-0 flex justify-center items-center pointer-events-none opacity-[0.05]">
-        {/* Example if using image */}
-        <img src="/images/audience-watermark.png" className="w-175" />
+      {/* Background watermark */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 flex justify-center items-center pointer-events-none opacity-[0.05]"
+      >
+        <img
+          src="/images/bisas-audience-watermark.png"
+          alt=""
+          className="w-175"
+        />
       </div>
 
       {/* content wrapper */}

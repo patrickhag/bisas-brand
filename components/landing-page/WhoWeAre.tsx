@@ -9,7 +9,7 @@ export default function whoWeAreSection() {
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: "url(/images/bora-land-watermark.png)",
+          backgroundImage: "url(/images/bisas-watermark-bg.png)",
           backgroundSize: "min(82vw, 980px) auto",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

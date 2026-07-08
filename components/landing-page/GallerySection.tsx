@@ -4,6 +4,7 @@ import {
   ArrowDownRight,
   Heart,
   Loader2,
+  MapPin,
   MoveRight,
   MoveUpRight,
 } from "lucide-react";
@@ -32,9 +33,9 @@ function ProjectCard({ project }: { project: TProject }) {
   const image = getProjectImage(project);
 
   return (
-    <div className="w-[320px] border border-[#A0A0A0] rounded-3xl p-1">
+    <div className="flex h-107.5 w-[320px] flex-col border border-[#A0A0A0] rounded-3xl p-1">
       {/* Image */}
-      <div className="rounded-2xl overflow-hidden bg-[#D9D9D9]">
+      <div className="shrink-0 rounded-2xl overflow-hidden bg-[#D9D9D9]">
         {image ? (
           <img
             src={image}
@@ -51,22 +52,23 @@ function ProjectCard({ project }: { project: TProject }) {
       </div>
 
       {/* Content */}
-      <div className="mt-3 bg-[#CFCFCF] rounded-2xl p-4">
-        <h3 className="text-2xl font-semibold text-[#2B2B2B]">
+      <div className="mt-3 flex flex-1 flex-col bg-[#CFCFCF] rounded-2xl p-4">
+        <h3 className="line-clamp-2 min-h-16 text-2xl font-semibold leading-tight text-[#2B2B2B]">
           {project.name}
         </h3>
 
-        <div className="mt-3 inline-block px-3 py-1 border border-[#555] rounded-full text-sm">
+        <div className="mt-3 inline-block w-fit max-w-full truncate px-3 py-1 border border-[#555] rounded-full text-sm">
           {project.cost || project.category}
         </div>
 
-        <p className="mt-3 text-sm text-[#333] flex items-center gap-2">
-          📍 {project.address || "Rwanda"}
+        <p className="mt-auto flex items-center gap-2 pt-3 text-sm text-[#333]">
+          <MapPin size={18} className="shrink-0 text-[#555]" />
+          <span className="truncate">{project.address || "Rwanda"}</span>
         </p>
       </div>
 
       {/* Bottom CTA */}
-      <button className="mt-4 w-full bg-[#D9C36F] rounded-full py-3 px-4 flex justify-between items-center">
+      <button className="mt-4 w-full shrink-0 bg-[#D9C36F] rounded-full py-3 px-4 flex justify-between items-center">
         <span className="w-10 h-10 rounded-full border border-[#444] flex items-center justify-center">
           <Heart size={15} />
         </span>
@@ -104,14 +106,18 @@ export default function GallerySection() {
     () => projects.find((project) => project.isFeatured) ?? projects[0],
     [projects],
   );
-  const cardProjects = useMemo(
-    () =>
-      projects
-        .filter((project) => project.id !== featuredProject?.id)
-        .slice(0, 2),
-    [featuredProject?.id, projects],
-  );
-  const featuredImage = featuredProject ? getProjectImage(featuredProject) : null;
+  const cardProjects = useMemo(() => {
+    if (!featuredProject) return [];
+
+    const nextProject = projects.find(
+      (project) => project.id !== featuredProject.id,
+    );
+
+    return nextProject ? [featuredProject, nextProject] : [featuredProject];
+  }, [featuredProject, projects]);
+  const featuredImage = featuredProject
+    ? getProjectImage(featuredProject)
+    : null;
 
   return (
     <section className="min-h-screen bg-[#f4f4f4] px-8 py-24">
@@ -166,7 +172,7 @@ export default function GallerySection() {
             {/* Top line */}
             <div className="flex justify-between items-center mb-8 border-t border-b border-[#6A6A6A] py-10">
               <p className="text-[#4D4D4D] text-lg">
-                Showing {projects.length} Projects
+                Showing {cardProjects.length} Projects
               </p>
 
               <Link

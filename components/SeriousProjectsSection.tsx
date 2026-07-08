@@ -1,17 +1,18 @@
-import { ArrowUpRight } from "lucide-react";
-import { Button } from "./ui/button";
+import Image from "next/image";
+
 import { CallToButton } from "./CallToAction";
 
 export default function SeriousProjectsSection() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#2f2f2f] flex items-center justify-center px-6">
-      {/* Background Shape */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="relative w-175 h-175 opacity-10">
-          <div className="absolute inset-0 border-40 border-gray-400 rotate-20 skew-y-12" />
-          <div className="absolute inset-30 border-30 border-gray-400 rotate-20 skew-y-12" />
-        </div>
-      </div>
+      <Image
+        src="/images/bisas-watermark-bg.png"
+        alt=""
+        aria-hidden="true"
+        width={760}
+        height={760}
+        className="pointer-events-none absolute left-1/2 top-1/2 w-[min(82vw,760px)] -translate-x-1/2 -translate-y-1/2 opacity-10"
+      />
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl text-center">
@@ -27,7 +28,10 @@ export default function SeriousProjectsSection() {
           Serious Projects Begin With Clarity.
         </h1>
 
-        <CallToButton ctaLabel="Request a Consultation" />
+        <CallToButton
+          ctaHref="/boraland/request-consultation"
+          ctaLabel="Request a Consultation"
+        />
       </div>
     </section>
   );

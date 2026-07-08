@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 type Project = {
   title: string;
@@ -20,7 +18,31 @@ interface Props {
 }
 
 export function ProjectPreviewDialog({ open, onOpenChange, project }: Props) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const [currentImage, setCurrentImage] = useState(0);
+  const hasMultipleImages = project.images.length > 1;
+  const activeImageIndex = Math.max(
+    0,
+    Math.min(currentImage, project.images.length - 1),
+  );
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (open && !dialog.open) {
+      dialog.showModal();
+    }
+
+    if (!open && dialog.open) {
+      dialog.close();
+    }
+  }, [open]);
+
+  function closeDialog() {
+    setCurrentImage(0);
+    onOpenChange(false);
+  }
 
   function nextImage() {
     if (currentImage < project.images.length - 1) {
@@ -35,62 +57,97 @@ export function ProjectPreviewDialog({ open, onOpenChange, project }: Props) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[96vw] max-w-[1500px] border-none bg-transparent p-0 shadow-none">
-        <div className="relative w-full overflow-hidden rounded-[32px] bg-[#2C2C2C]">
-          <div className="relative h-[85vh] min-h-[700px] w-full">
-            <Image
-              src={project.images[currentImage]}
-              alt={project.title}
-              fill
-              className="object-cover"
-            />
+    <dialog
+      ref={dialogRef}
+      aria-labelledby="project-preview-title"
+      className="fixed left-1/2 top-1/2 z-50 m-0 w-[90vw] max-w-[1280px] -translate-x-1/2 -translate-y-1/2 overflow-visible border-none bg-transparent p-0 text-left shadow-none outline-none backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+      onCancel={(event) => {
+        event.preventDefault();
+        closeDialog();
+      }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          closeDialog();
+        }
+      }}
+    >
+      <div className="relative max-h-[88vh] w-full overflow-hidden rounded-[24px] border border-[#D8D8D8] bg-white shadow-2xl">
+        <button
+          type="button"
+          onClick={closeDialog}
+          className="absolute right-5 top-5 z-30 flex size-10 items-center justify-center rounded-lg bg-[#2C2C2C] text-white transition-colors hover:bg-black"
+          aria-label="Close preview"
+        >
+            <X size={22} />
+        </button>
 
-            {/* overlay */}
-            <div className="absolute inset-x-0 bottom-0 h-[280px] bg-gradient-to-t from-[#2C2C2C] via-[#2C2C2C]/70 to-transparent backdrop-blur-md" />
+        <div className="relative p-4 pb-0 sm:p-5 sm:pb-0">
+          <div className="relative h-[40vh] min-h-[260px] w-full overflow-hidden rounded-sm md:h-[52vh] md:min-h-[400px]">
+            {project.images[activeImageIndex] && (
+              <Image
+                src={project.images[activeImageIndex]}
+                alt={project.title}
+                fill
+                priority
+                sizes="90vw"
+                className="object-cover"
+              />
+            )}
+          </div>
+        </div>
 
-            {/* content */}
-            <div className="absolute inset-x-0 bottom-0 z-20 p-10">
-              <h2 className="font-mono text-5xl font-semibold text-white">
+        <div className="relative bg-gradient-to-b from-white via-[#D7D7D7] to-[#2C2C2C] px-5 pb-5 pt-4 text-white sm:px-7 md:px-8 md:pb-6">
+          <div className="flex items-start justify-between gap-5">
+            <div className="min-w-0">
+              <h2
+                id="project-preview-title"
+                className="font-mono text-3xl font-semibold leading-none text-[#2C2C2C] md:text-4xl lg:text-5xl"
+              >
                 {project.title}
               </h2>
 
-              <div className="mt-4 flex gap-3">
+              <div className="mt-4 flex flex-wrap gap-2.5">
                 {project.tags.map((tag) => (
                   <div
                     key={tag}
-                    className="rounded-full border border-white/30 px-4 py-1 text-sm text-white"
+                    className="rounded-full border border-black/25 bg-[#2C2C2C]/45 px-4 py-1.5 font-mono text-sm text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] backdrop-blur-md"
                   >
                     {tag}
                   </div>
                 ))}
               </div>
+            </div>
 
-              <div className="absolute right-10 top-8 flex gap-3">
+            {hasMultipleImages && (
+              <div className="mt-1 flex shrink-0 gap-3">
                 <button
+                  type="button"
                   onClick={previousImage}
                   disabled={currentImage === 0}
-                  className="rounded-full border border-white/40 bg-black/20 p-3 text-white disabled:opacity-30"
+                  className="flex size-10 items-center justify-center rounded-full border border-[#2C2C2C]/50 bg-white/30 text-[#2C2C2C] transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-35"
+                  aria-label="Previous project image"
                 >
                   <ChevronLeft size={18} />
                 </button>
 
                 <button
+                  type="button"
                   onClick={nextImage}
                   disabled={currentImage === project.images.length - 1}
-                  className="rounded-full border border-white/40 bg-black/20 p-3 text-white disabled:opacity-30"
+                  className="flex size-10 items-center justify-center rounded-full border border-[#2C2C2C]/50 bg-white/30 text-[#2C2C2C] transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-35"
+                  aria-label="Next project image"
                 >
                   <ChevronRight size={18} />
                 </button>
               </div>
-
-              <p className="mt-8 max-w-4xl text-base leading-relaxed text-gray-200">
-                {project.description}
-              </p>
-            </div>
+            )}
           </div>
+
+          <p className="mt-6 max-w-[1040px] font-mono text-sm leading-relaxed text-white/90 md:text-base">
+            {project.description}
+          </p>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </dialog>
   );
 }
