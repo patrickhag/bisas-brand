@@ -2,6 +2,14 @@ import ProcessFlow from "@/components/our-process-page/ProcessFlow";
 import { ProjectHeader } from "@/components/ProjectHeader";
 import SeriousProjectsSection from "@/components/SeriousProjectsSection";
 import IntroSection from "@/components/ui/IntroSection";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Process",
+  description:
+    "Understand Boraland's step-by-step process for construction oversight, contract onboarding, execution, and close-out.",
+  path: "/boraland/process",
+});
 
 export default function ServicesPage() {
   return (

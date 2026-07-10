@@ -38,7 +38,7 @@ function RequirementCard({ item }: { item: TItem }) {
   const Icon = item.icon;
 
   return (
-    <div className="flex h-[300px] w-[275px] flex-col justify-between rounded-[24px] bg-[#F4F4F4] p-6">
+    <div className="flex h-[270px] w-full max-w-[275px] flex-col justify-between rounded-[24px] bg-white p-6 sm:h-[300px]">
       {/* top number */}
       <span className="text-[34px] font-light text-[#2B2B2B]">
         {item.number}
@@ -50,7 +50,7 @@ function RequirementCard({ item }: { item: TItem }) {
       </div>
 
       {/* bottom title */}
-      <div className="text-center text-[28px] leading-none">
+      <div className="text-center text-2xl leading-none sm:text-[28px]">
         <span className="font-medium text-[#2B2B2B]">{item.title}</span>{" "}
         <span className="font-medium text-[#E4CC72]">{item.highlight}</span>
       </div>
@@ -62,7 +62,7 @@ export default function ThirdServiceSection() {
   return (
     <section
       id="design-build"
-      className="scroll-mt-24 bg-[#2B2B2B] px-6 py-20 md:px-12 lg:px-20"
+      className="scroll-mt-24 bg-[#F4F4F4] px-6 py-20 md:px-12 lg:px-20"
     >
       <div className="mx-auto max-w-7xl">
         {/* HEADER */}
@@ -75,13 +75,13 @@ export default function ThirdServiceSection() {
 
           {/* heading */}
           <div className="text-center">
-            <h2 className="font-mono text-[42px] leading-none md:text-[56px]">
-              <span className="text-white">Design &</span>{" "}
+            <h2 className="font-mono text-[36px] leading-none md:text-[56px]">
+              <span className="text-[#2C2C2C]">Design &</span>{" "}
               <span className="text-[#E4CC72]">Build</span>
             </h2>
 
             {/* description */}
-            <p className="mx-auto mt-6 max-w-3xl text-[16px] leading-relaxed text-[#ECECEC]">
+            <p className="mx-auto mt-6 max-w-3xl text-[16px] leading-relaxed text-[#2C2C2C]">
               We take on a select number of full-build projects each year. Every
               one requires a clear scope, a real budget, and a client who is
               serious about delivering. If that is you, let us talk.
@@ -90,7 +90,7 @@ export default function ThirdServiceSection() {
         </div>
 
         {/* cards */}
-        <div className="mt-20 flex flex-wrap justify-center gap-6">
+        <div className="mt-14 grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
           {cards.map((item) => (
             <RequirementCard key={item.number} item={item} />
           ))}

@@ -17,7 +17,7 @@ export default function ServiceDetailSection() {
 
           {/* Main heading + description */}
           <div className="max-w-3xl text-center">
-            <h2 className="text-[42px] md:text-[56px] leading-none">
+            <h2 className="text-[36px] leading-none md:text-[56px]">
               <span className="font-mono text-white">Client</span>{" "}
               <span className="font-mono text-[#E4CC72]">Representation</span>
             </h2>
@@ -35,17 +35,19 @@ export default function ServiceDetailSection() {
         <div className="mt-14 h-px w-full bg-[#555555]" />
 
         {/* Scope Includes */}
-        <div className="grid grid-cols-1 gap-12 py-10 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 py-10 md:grid-cols-2 md:gap-12">
           {/* Left */}
           <div className="flex items-start gap-6">
-            <Minus size={40} strokeWidth={3} className="mt-2 text-white" />
+            <Minus size={32} strokeWidth={3} className="mt-2 shrink-0 text-white md:size-10" />
 
-            <h3 className="font-mono text-[32px] text-white">Scope Includes</h3>
+            <h3 className="font-mono text-[26px] text-white md:text-[32px]">
+              Scope Includes
+            </h3>
           </div>
 
           {/* Right */}
           <div>
-            <ul className="space-y-2 text-[18px] text-white">
+            <ul className="space-y-2 text-base text-white md:text-[18px]">
               <li>• Contractor coordination</li>
               <li>• Quality control and supervision</li>
               <li>• Cost verification and tracking</li>
@@ -59,17 +61,19 @@ export default function ServiceDetailSection() {
         <div className="h-px w-full bg-[#555555]" />
 
         {/* Ideal For */}
-        <div className="grid grid-cols-1 gap-12 py-10 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 py-10 md:grid-cols-2 md:gap-12">
           {/* Left */}
           <div className="flex items-start gap-6">
-            <Minus size={40} strokeWidth={3} className="mt-2 text-white" />
+            <Minus size={32} strokeWidth={3} className="mt-2 shrink-0 text-white md:size-10" />
 
-            <h3 className="font-mono text-[32px] text-white">Ideal For</h3>
+            <h3 className="font-mono text-[26px] text-white md:text-[32px]">
+              Ideal For
+            </h3>
           </div>
 
           {/* Right */}
           <div>
-            <ul className="space-y-2 text-[18px] text-white">
+            <ul className="space-y-2 text-base text-white md:text-[18px]">
               <li>• Diaspora clients</li>
               <li>• Executives and investors</li>
               <li>• Owners seeking peace of mind</li>

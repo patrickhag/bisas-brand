@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowDownRight } from "lucide-react";
 import { RedirectButton } from "../RedirectButton";
+import { geistSans } from "@/lib/utils";
 
 export default function whoWeAreSection() {
   return (
@@ -21,13 +22,14 @@ export default function whoWeAreSection() {
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
         {/* Top button */}
         <RedirectButton text="What we do" IconType={ArrowDownRight} />
-
-        {/* Main heading */}
-        <h1 className="font-mono text-white text-4xl md:text-6xl leading-tight max-w-4xl">
-          We Represent Property Owners,
-          <br />
-          <span className="text-gray-300">We Protect Investments.</span>
-        </h1>
+        <div className={`${geistSans.className}`}>
+          {/* Main heading */}
+          <h2 className="max-w-4xl font-mono text-4xl leading-tight text-white md:text-5xl">
+            We Represent Property Owners,
+            <br />
+            <span className="text-gray-300">We Protect Investments.</span>
+          </h2>
+        </div>
 
         {/* Paragraph 1 */}
         <p className="mt-14 text-gray-300 text-base md:text-lg leading-relaxed max-w-3xl">

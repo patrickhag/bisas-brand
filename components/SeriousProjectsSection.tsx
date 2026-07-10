@@ -4,7 +4,7 @@ import { CallToButton } from "./CallToAction";
 
 export default function SeriousProjectsSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#2f2f2f] flex items-center justify-center px-6">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#2f2f2f] px-5 py-16 sm:px-6">
       <Image
         src="/images/bisas-watermark-bg.png"
         alt=""
@@ -24,9 +24,9 @@ export default function SeriousProjectsSection() {
           informed. We stay accountable.
         </p>
 
-        <h1 className="mt-14 text-4xl md:text-6xl font-semibold tracking-tight text-gray-200">
+        <h2 className="mt-12 text-[34px] font-semibold tracking-tight text-gray-200 md:mt-14 md:text-6xl">
           Serious Projects Begin With Clarity.
-        </h1>
+        </h2>
 
         <CallToButton
           ctaHref="/boraland/request-consultation"

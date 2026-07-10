@@ -1,96 +1,120 @@
-"use client";
+import { desc } from "drizzle-orm";
 
-import { useState, useEffect } from "react";
-import { Loader2 } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import ServicesTable from "@/components/inquiries/ServicesTable";
-import InquiryCardView from "@/components/inquiries/InquiryCardView";
-import { inquiries, ServiceItem } from "@/components/inquiries/types";
+import {
+  contactMessages,
+  consultationRequests,
+  newsletterSubscribers,
+} from "@/db/schema";
+import { db } from "@/lib/db";
+import InquiriesDashboard from "@/components/inquiries/InquiriesDashboard";
+import type {
+  Inquiry,
+  NewsletterSubscriber,
+} from "@/components/inquiries/types";
 
-// ─── Component ──────────────────────────────────
+function getInitials(email: string) {
+  const [name = ""] = email.split("@");
+  const parts = name.split(/[._-]/).filter(Boolean);
 
-export default function InquiriesPage() {
-  const [services, setServices] = useState<ServiceItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  if (parts.length >= 2) {
+    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  }
 
-  const fetchServices = async () => {
-    setIsLoading(true);
-    try {
-      const res = await fetch("/api/services");
-      if (res.ok) {
-        const data = await res.json();
-        setServices(data.services);
-      }
-    } catch {
-      // silently fail
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  return name.slice(0, 2).toUpperCase() || "CR";
+}
 
-  useEffect(() => {
-    fetchServices();
-  }, []);
+function getTimeLabel(date: Date) {
+  const diffMs = Date.now() - date.getTime();
+  const minutes = Math.max(1, Math.floor(diffMs / 60000));
 
-  const servicesInquiries = inquiries.filter((i) => i.tab === "Services");
-  const reachoutsInquiries = inquiries.filter((i) => i.tab === "Reachouts");
-  const contactsInquiries = inquiries.filter((i) => i.tab === "Contacts");
+  if (minutes < 60) return `${minutes} MIN AGO`;
+
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} ${hours === 1 ? "HOUR" : "HOURS"} AGO`;
+
+  const days = Math.floor(hours / 24);
+  if (days === 1) return "YESTERDAY";
+  if (days < 14) return `${days} DAYS AGO`;
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+export default async function InquiriesPage() {
+  const [
+    allConsultationRequests,
+    allContactMessages,
+    allNewsletterSubscribers,
+  ] = await Promise.all([
+    db
+      .select()
+      .from(consultationRequests)
+      .orderBy(desc(consultationRequests.createdAt)),
+    db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt)),
+    db
+      .select()
+      .from(newsletterSubscribers)
+      .orderBy(desc(newsletterSubscribers.createdAt)),
+  ]);
+
+  const consultationInquiries: Inquiry[] = allConsultationRequests.map(
+    (request, index) => ({
+      initials: getInitials(request.email),
+      name: request.email.split("@")[0] || "Consultation Request",
+      company: request.consultationType,
+      subject: `Consultation request — ${request.consultationType}`,
+      preview: request.message,
+      email: request.email,
+      id: `CONS-${String(allConsultationRequests.length - index).padStart(3, "0")}`,
+      time: getTimeLabel(request.createdAt),
+      tab: "Consultations",
+    }),
+  );
+
+  const contactInquiries: Inquiry[] = allContactMessages.map(
+    (message, index) => ({
+      initials: getInitials(message.email),
+      name: message.email.split("@")[0] || "Contact Message",
+      company: "Contact form",
+      subject: "Contact message",
+      preview: message.message,
+      email: message.email,
+      id: `CNT-${String(allContactMessages.length - index).padStart(3, "0")}`,
+      time: getTimeLabel(message.createdAt),
+      tab: "Contacts",
+    }),
+  );
+
+  const serializedNewsletterSubscribers: NewsletterSubscriber[] =
+    allNewsletterSubscribers.map((subscriber) => ({
+      ...subscriber,
+      createdAt: subscriber.createdAt.toISOString(),
+    }));
 
   return (
-    <div className="p-10">
-      {/* header */}
+    <div className="p-5 sm:p-8 lg:p-10">
       <div className="mb-8">
         <div>
-          <p className="font-mono text-[11px] text-[#7A6F69] mb-2">→ INBOX</p>
+          <p className="mb-2 font-mono text-[11px] text-[#7A6F69]">→ INBOX</p>
 
-          <h1 className="font-mono text-5xl font-bold text-[#2C2C2C] leading-none">
+          <h1 className="font-mono text-4xl font-bold leading-none text-[#2C2C2C] sm:text-5xl">
             Inquiries
           </h1>
 
           <p className="mt-3 text-sm text-[#7A6F69]">
-            New messages from the contact form, tenders, and press.
+            New messages from consultation requests and contact forms.
           </p>
         </div>
       </div>
 
-      {/* tabs */}
-      <Tabs defaultValue="Services">
-        <TabsList>
-          {[
-            { key: "Services", count: servicesInquiries.length },
-            { key: "Reachouts", count: reachoutsInquiries.length },
-            { key: "Contacts", count: contactsInquiries.length },
-          ].map(({ key, count }) => (
-            <TabsTrigger key={key} value={key}>
-              {key}{" "}
-              <span className="ml-1 text-xs opacity-60">{count}</span>
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
-        <TabsContent value="Services">
-          {isLoading ? (
-            <div className="flex items-center justify-center py-20">
-              <div className="flex items-center gap-2 text-[#6A6A6A]">
-                <Loader2 size={18} className="animate-spin" />
-                <span className="font-mono text-sm">
-                  Loading services...
-                </span>
-              </div>
-            </div>
-          ) : (
-            <ServicesTable services={services} onRefresh={fetchServices} />
-          )}
-        </TabsContent>
-
-        <TabsContent value="Reachouts">
-          <InquiryCardView inquiries={reachoutsInquiries} />
-        </TabsContent>
-
-        <TabsContent value="Contacts">
-          <InquiryCardView inquiries={contactsInquiries} />
-        </TabsContent>
-      </Tabs>
+      <InquiriesDashboard
+        consultationInquiries={consultationInquiries}
+        contactInquiries={contactInquiries}
+        newsletterSubscribers={serializedNewsletterSubscribers}
+      />
     </div>
   );
 }

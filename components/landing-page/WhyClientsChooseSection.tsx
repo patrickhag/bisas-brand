@@ -27,7 +27,10 @@ const reasons = [
 
 export default function WhyClientsChooseSection() {
   return (
-    <section className="bg-white px-6 py-16 md:px-10 lg:py-20">
+    <section
+      id="why-choose-us"
+      className="bg-white px-6 py-16 md:px-10 lg:py-20"
+    >
       <div className="mx-auto max-w-7xl border-b border-[#E1E1E1] pb-12">
         <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-8">
           <RedirectButton text="WHY BORALAND" IconType={ArrowDownRight} />

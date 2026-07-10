@@ -43,21 +43,21 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="sticky top-0 h-screen w-67.5 bg-[#2C2C2C] text-white flex flex-col justify-between border-r border-[#3B3B3B]">
+    <aside className="sticky top-0 z-40 flex bg-[#2C2C2C] text-white lg:h-screen lg:w-67.5 lg:flex-col lg:justify-between lg:border-r lg:border-[#3B3B3B]">
       {/* TOP */}
-      <div>
+      <div className="flex w-full items-center justify-between gap-3 px-4 py-3 lg:block lg:px-0 lg:py-0">
         {/* logo */}
-        <div className="border-b border-[#3A3A3A] px-6 py-7">
+        <div className="lg:border-b lg:border-[#3A3A3A] lg:px-6 lg:py-7">
           <div className="flex items-center gap-3">
-            <Link className="w-10 h-10" href={"/"}>
+            <Link className="block size-10" href={"/"}>
               <Image
                 src={"/logo.svg"}
                 alt="Bora-land logo"
-                width={"400"}
-                height={"400"}
+                width={40}
+                height={40}
               />
             </Link>
-            <div>
+            <div className="hidden sm:block">
               <h2 className="text-lg font-semibold">Boraland</h2>
               <p className="font-mono text-xs text-gray-400">ADMIN</p>
             </div>
@@ -65,7 +65,7 @@ export default function AdminSidebar() {
         </div>
 
         {/* nav links */}
-        <nav className="mt-8 px-4 space-y-3">
+        <nav className="flex min-w-0 flex-1 justify-end gap-2 overflow-x-auto lg:mt-8 lg:block lg:space-y-3 lg:px-4">
           {links.map((link) => {
             const Icon = link.icon;
             const active = pathname === link.href;
@@ -74,13 +74,13 @@ export default function AdminSidebar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`flex items-center justify-between rounded-full px-4 py-3 transition ${
+                className={`flex shrink-0 items-center justify-between rounded-full px-3 py-2 text-sm transition lg:px-4 lg:py-3 lg:text-base ${
                   active ? "bg-[#E4CC72] text-[#2C2C2C]" : "hover:bg-[#3A3A3A]"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <Icon size={17} />
-                  <span>{link.name}</span>
+                  <span className="hidden sm:inline">{link.name}</span>
                 </div>
               </Link>
             );
@@ -89,7 +89,7 @@ export default function AdminSidebar() {
       </div>
 
       {/* BOTTOM */}
-      <div className="p-4 space-y-4">
+      <div className="hidden space-y-4 p-4 lg:block">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-[#E4CC72] flex items-center justify-center font-semibold text-[#2C2C2C]">

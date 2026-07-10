@@ -1,4 +1,9 @@
+"use client";
+
 import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+
+import { RequestConsultationModal } from "@/components/request-consultation/RequestConsultationModal";
 
 export const CallToButton = ({
   ctaHref,
@@ -7,23 +12,51 @@ export const CallToButton = ({
   ctaHref?: string;
   ctaLabel: string;
 }) => {
-  return (
-    <div className="mt-10 flex justify-center">
-      <a
-        href={ctaHref ?? "/boraland/request-consultation"}
-        className="group flex overflow-hidden rounded-full border border-[#E4CC72] cursor-pointer no-underline"
-      >
-        <div className="bg-[#E4CC72] px-10 py-5 text-lg text-[#2B2B2B]">
-          {ctaLabel}
-        </div>
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const opensConsultation =
+    !ctaHref || ctaHref === "/boraland/request-consultation";
+  const buttonContent = (
+    <>
+      <div className="bg-[#E4CC72] px-5 py-4 text-sm text-[#2B2B2B] sm:px-10 sm:py-5 sm:text-lg">
+        {ctaLabel}
+      </div>
 
-        <div className="flex items-center justify-center bg-[#2B2B2B] px-8 text-[#E4CC72]">
-          <ArrowUpRight
-            size={20}
-            className="text-[#8B7355] group-hover:animate-bounce-once"
-          />
-        </div>
-      </a>
-    </div>
+      <div className="flex items-center justify-center bg-[#2B2B2B] px-5 text-[#E4CC72] sm:px-8">
+        <ArrowUpRight
+          size={20}
+          className="text-[#8B7355] group-hover:animate-bounce-once"
+        />
+      </div>
+    </>
+  );
+
+  return (
+    <>
+      <div className="mt-10 flex justify-center">
+        {opensConsultation ? (
+          <button
+            type="button"
+            onClick={() => setIsConsultationOpen(true)}
+            className="group flex max-w-full cursor-pointer overflow-hidden rounded-full border border-[#E4CC72] no-underline"
+          >
+            {buttonContent}
+          </button>
+        ) : (
+          <a
+            href={ctaHref}
+            className="group flex max-w-full cursor-pointer overflow-hidden rounded-full border border-[#E4CC72] no-underline"
+          >
+            {buttonContent}
+          </a>
+        )}
+      </div>
+
+      {opensConsultation && (
+        <RequestConsultationModal
+          open={isConsultationOpen}
+          onOpenChange={setIsConsultationOpen}
+        />
+      )}
+    </>
   );
 };

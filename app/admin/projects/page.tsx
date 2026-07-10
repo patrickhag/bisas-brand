@@ -154,14 +154,14 @@ export default function PortfolioAdminDashboard() {
   const draftCount = projects.filter((p) => p.status === "draft").length;
 
   return (
-    <div className="p-10">
-        <div className="flex items-start justify-between">
+    <div className="p-5 sm:p-8 lg:p-10">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="font-mono text-xs uppercase tracking-wider text-gray-500">
               → Portfolio
             </p>
 
-            <h1 className="mt-3 font-mono text-7xl font-bold text-[#2C2C2C]">
+            <h1 className="mt-3 font-mono text-5xl font-bold text-[#2C2C2C] sm:text-7xl">
               Projects
             </h1>
 
@@ -196,15 +196,15 @@ export default function PortfolioAdminDashboard() {
         </div>
 
         {/* stats */}
-        <div className="mt-10 grid grid-cols-3 gap-5">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
           <StatCard label="TOTAL PROJECTS" value={String(projects.length)} />
           <StatCard label="PUBLISHED" value={String(publishedCount)} />
           <StatCard label="IN DRAFT" value={String(draftCount)} />
         </div>
 
         {/* filters */}
-        <div className="mt-8 flex gap-4">
-          <div className="flex w-[420px] items-center gap-3 rounded-full border border-gray-200 bg-white px-5 py-3">
+        <div className="mt-8 flex flex-col gap-4 xl:flex-row">
+          <div className="flex w-full items-center gap-3 rounded-full border border-gray-200 bg-white px-5 py-3 xl:w-[420px]">
             <Search size={16} />
             <input
               value={searchQuery}
@@ -404,8 +404,8 @@ export default function PortfolioAdminDashboard() {
         </div>
 
         {/* table */}
-        <div className="mt-8 overflow-hidden rounded-3xl border border-gray-200 bg-white">
-          <table className="w-full">
+        <div className="mt-8 overflow-x-auto rounded-3xl border border-gray-200 bg-white">
+          <table className="min-w-[980px]">
             <thead className="border-b">
               <tr className="font-mono text-left text-xs text-gray-500">
                 <th className="p-5">#</th>

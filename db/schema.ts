@@ -1,4 +1,10 @@
-import { boolean, pgTable, text, pgEnum } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  pgTable,
+  text,
+  pgEnum,
+  timestamp,
+} from "drizzle-orm/pg-core";
 
 export const projectStatusEnum = pgEnum("project_status", [
   "published",
@@ -27,4 +33,37 @@ export const services = pgTable("services", {
   name: text("name").notNull(),
   image: text("image"),
   description: text("description").notNull().default(""),
+});
+
+export const consultationRequests = pgTable("consultation_requests", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  email: text("email").notNull(),
+  consultationType: text("consultation_type").notNull(),
+  message: text("message").notNull().default(""),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const contactMessages = pgTable("contact_messages", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  email: text("email").notNull(),
+  message: text("message").notNull().default(""),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const newsletterSubscribers = pgTable("newsletter_subscribers", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  email: text("email").notNull().unique(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const siteSettings = pgTable("site_settings", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull().default(""),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

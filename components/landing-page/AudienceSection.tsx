@@ -1,4 +1,9 @@
+"use client";
+
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+
+import { RequestConsultationModal } from "@/components/request-consultation/RequestConsultationModal";
 import { RedirectButton } from "../RedirectButton";
 
 const audiences = [
@@ -27,7 +32,7 @@ type TAudience = {
 
 function AudienceCard({ item }: { item: TAudience }) {
   return (
-    <div className="relative group w-70 h-82.5 rounded-2xl overflow-hidden bg-linear-to-b from-[#4a4a4a] to-[#1a1a1a]">
+    <div className="relative h-[300px] w-full max-w-[280px] overflow-hidden rounded-2xl bg-linear-to-b from-[#4a4a4a] to-[#1a1a1a] sm:h-82.5">
       {/* image */}
       <img
         src={item.image}
@@ -51,58 +56,77 @@ function AudienceCard({ item }: { item: TAudience }) {
 }
 
 export default function AudienceSection() {
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+
   return (
-    <section className="relative min-h-screen bg-[#2B2B2B] overflow-hidden px-8 py-20">
-      {/* Background watermark */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 flex justify-center items-center pointer-events-none opacity-[0.05]"
+    <>
+      <section
+        id="who-we-work-with"
+        className="relative min-h-screen overflow-hidden bg-[#2B2B2B] px-5 py-16 sm:px-8 lg:py-20"
       >
-        <img
-          src="/images/bisas-audience-watermark.png"
-          alt=""
-          className="w-175"
-        />
-      </div>
+        {/* Background watermark */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 flex justify-center items-center pointer-events-none opacity-[0.05]"
+        >
+          <img
+            src="/images/bisas-audience-watermark.png"
+            alt=""
+            className="w-[min(175px,70vw)] sm:w-175"
+          />
+        </div>
 
-      {/* content wrapper */}
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* top section */}
-        <div className="flex flex-col items-center">
-          {/* badge */}
-          <RedirectButton text="Expertise" IconType={ArrowDownRight} />
+        {/* content wrapper */}
+        <div className="relative z-10 max-w-7xl mx-auto">
+          {/* top section */}
+          <div className="flex flex-col items-center">
+            {/* badge */}
+            <RedirectButton text="Expertise" IconType={ArrowDownRight} />
 
-          {/* heading */}
-          <div className="mt-8 text-center">
-            <h2 className="font-mono text-[54px] leading-none text-white">
-              Who Do We
-            </h2>
+            {/* heading */}
+            <div className="mt-8 text-center">
+              <h2 className="font-mono text-[38px] leading-none text-white sm:text-[54px]">
+                Who Do We
+              </h2>
 
-            <h2 className="font-mono text-[54px] leading-none text-[#9B9B9B]">
-              Work With?
-            </h2>
+              <h2 className="font-mono text-[38px] leading-none text-[#9B9B9B] sm:text-[54px]">
+                Work With?
+              </h2>
+            </div>
+          </div>
+
+          {/* cards */}
+          <div className="mt-14 grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 lg:mt-20 xl:grid-cols-4">
+            {audiences.map((item, index) => (
+              <AudienceCard key={index} item={item} />
+            ))}
+          </div>
+
+          {/* bottom text */}
+          <div className="mt-20 flex flex-col items-center">
+            <h3 className="font-mono text-center text-[34px] leading-tight text-[#BDBDBD] sm:text-[48px] lg:text-[56px]">
+              Serious Projects Begin With Clarity.
+            </h3>
+
+            <button
+              type="button"
+              onClick={() => setIsConsultationOpen(true)}
+              className="group mt-10 flex cursor-pointer items-center gap-3 rounded-2xl bg-[#D9C36F] px-6 py-4 text-base text-[#2B2B2B] sm:gap-4 sm:px-10 sm:py-5 sm:text-lg"
+            >
+              Book a Private Strategy Call
+              <ArrowUpRight
+                size={15}
+                className="group-hover:animate-bounce-once"
+              />
+            </button>
           </div>
         </div>
+      </section>
 
-        {/* cards */}
-        <div className="mt-20 flex flex-wrap justify-center gap-8">
-          {audiences.map((item, index) => (
-            <AudienceCard key={index} item={item} />
-          ))}
-        </div>
-
-        {/* bottom text */}
-        <div className="mt-20 flex flex-col items-center">
-          <h3 className="font-mono text-center text-[56px] text-[#BDBDBD]">
-            Serious Projects Begin With Clarity.
-          </h3>
-
-          <button className="mt-10 px-10 py-5 rounded-2xl bg-[#D9C36F] text-[#2B2B2B] flex items-center gap-4 text-lg">
-            Book a Private Strategy Call
-            <ArrowUpRight size={15} />
-          </button>
-        </div>
-      </div>
-    </section>
+      <RequestConsultationModal
+        open={isConsultationOpen}
+        onOpenChange={setIsConsultationOpen}
+      />
+    </>
   );
 }

@@ -1,10 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
+import { Roboto } from "next/font/google";
 import { useRouter, usePathname } from "next/navigation";
 import AdminSidebar from "@/components/admin/Sidebar";
 
 const PUBLIC_ADMIN_PATHS = ["/admin", "/admin/login"];
+
+const roboto = Roboto({
+  variable: "--admin-roboto",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700", "900"],
+});
 
 export default function AdminLayout({
   children,
@@ -28,14 +35,14 @@ export default function AdminLayout({
 
   // Public pages (login, landing) render without sidebar
   if (isPublicPath) {
-    return <>{children}</>;
+    return <div className={roboto.className}>{children}</div>;
   }
 
   // Protected pages render with the sidebar
   return (
-    <div className="flex min-h-screen bg-[#F8F8F6]">
+    <div className={`${roboto.className} min-h-screen bg-[#F8F8F6] lg:flex`}>
       <AdminSidebar />
-      <main className="flex-1">{children}</main>
+      <main className="min-w-0 flex-1">{children}</main>
     </div>
   );
 }

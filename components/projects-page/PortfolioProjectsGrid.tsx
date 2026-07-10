@@ -2,7 +2,8 @@
 
 import { MoveUpRight, Search } from "lucide-react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { PortfolioProject } from "@/app/boraland/portfolio/types";
 import { ProjectPreviewDialog } from "@/components/projects-page/ProjectPreviewDialog";
 
@@ -21,6 +22,9 @@ export function PortfolioProjectsGrid({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const searchParams = useSearchParams();
+  const projectIdFromUrl = searchParams.get("project");
+  const hasAutoOpenedProject = useRef(false);
 
   const shouldShowControls = projects.length > PROJECTS_PER_PAGE;
   const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -59,11 +63,32 @@ export function PortfolioProjectsGrid({
   }
 
   function openProject(project: PortfolioProject) {
-    if (project.images.length === 0) return;
-
     setSelectedProject(project);
     setDialogOpen(true);
   }
+
+  useEffect(() => {
+    if (
+      !projectIdFromUrl ||
+      projects.length === 0 ||
+      hasAutoOpenedProject.current
+    ) {
+      return;
+    }
+
+    const project = projects.find((item) => item.id === projectIdFromUrl);
+    if (!project) {
+      return;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setSelectedProject(project);
+      setDialogOpen(true);
+      hasAutoOpenedProject.current = true;
+    }, 0);
+
+    return () => window.clearTimeout(timeout);
+  }, [projectIdFromUrl, projects]);
 
   return (
     <>
@@ -142,7 +167,7 @@ export function PortfolioProjectsGrid({
         </div>
       </section>
 
-      {selectedProject && selectedProject.images.length > 0 && (
+      {selectedProject && (
         <ProjectPreviewDialog
           open={dialogOpen}
           onOpenChange={setDialogOpen}

@@ -76,8 +76,8 @@ export default function ServicesTable({
   return (
     <>
       {/* filters */}
-      <div className="flex gap-4 items-center">
-        <div className="flex w-[420px] items-center gap-3 rounded-full border border-gray-200 bg-white px-5 py-3">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
+        <div className="flex w-full items-center gap-3 rounded-full border border-gray-200 bg-white px-5 py-3 xl:w-[420px]">
           <Search size={16} />
           <input
             value={searchQuery}
@@ -110,7 +110,7 @@ export default function ServicesTable({
         )}
 
         {/* Spacer */}
-        <div className="flex-1" />
+        <div className="hidden flex-1 xl:block" />
 
         {/* Add Service button */}
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen} modal>
@@ -139,8 +139,8 @@ export default function ServicesTable({
       </div>
 
       {/* table */}
-      <div className="mt-8 overflow-hidden rounded-3xl border border-gray-200 bg-white">
-        <table className="w-full">
+      <div className="mt-8 overflow-x-auto rounded-3xl border border-gray-200 bg-white">
+        <table className="min-w-[780px]">
           <thead className="border-b">
             <tr className="font-mono text-left text-xs text-gray-500">
               <th className="p-5">#</th>

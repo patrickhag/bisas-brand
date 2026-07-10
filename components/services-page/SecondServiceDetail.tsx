@@ -17,7 +17,7 @@ export default function SecondServiceSection() {
 
           {/* heading */}
           <div className="text-center">
-            <h2 className="text-[42px] leading-tight md:text-[56px]">
+            <h2 className="text-[36px] leading-tight md:text-[56px]">
               <span className="block text-[#2C2C2C]">Pre-Construction</span>
 
               <span className="text-[#2C2C2C]">Advisory </span>
@@ -38,19 +38,19 @@ export default function SecondServiceSection() {
         <div className="mt-14 h-px w-full bg-[#555555]" />
 
         {/* INCLUDES SECTION */}
-        <div className="grid grid-cols-1 gap-12 py-10 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 py-10 md:grid-cols-2 md:gap-12">
           {/* left */}
           <div className="flex items-start gap-6">
-            <Minus size={40} strokeWidth={3} className="mt-2 text-white" />
+            <Minus size={32} strokeWidth={3} className="mt-2 shrink-0 text-[#2C2C2C] md:size-10" />
 
-            <h3 className="text-[32px] text-[#2C2C2C] font-semibold">
+            <h3 className="text-[26px] font-semibold text-[#2C2C2C] md:text-[32px]">
               Includes
             </h3>
           </div>
 
           {/* right */}
           <div>
-            <ul className="space-y-2 text-[18px] text-[#2C2C2C]">
+            <ul className="space-y-2 text-base text-[#2C2C2C] md:text-[18px]">
               <li>• Budget realism assessment</li>
               <li>• Technical feasibility review</li>
               <li>• Construction strategy</li>
@@ -64,16 +64,14 @@ export default function SecondServiceSection() {
 
         {/* CTA */}
         <div className="flex justify-center py-8">
-          <button className="flex items-center overflow-hidden rounded-full border border-[#555] bg-[#3A3A3A]">
+          <button className="flex max-w-full items-center overflow-hidden rounded-full border bg-[#f9f9f9]">
             {/* left */}
-            <span className="px-8 py-4 text-[16px] text-white">
+            <span className="px-5 py-4 text-sm text-black sm:px-8 sm:text-base">
               All projects begin with this step
             </span>
 
             {/* right circle */}
-            <div className="mr-2 flex h-10 w-10 items-center justify-center rounded-full bg-[#4A4A4A]">
-              <MoveRight size={16} className="text-white" />
-            </div>
+            <div className="mr-2 flex h-7 w-7 items-center justify-center rounded-full bg-[#2C2C2C]" />
           </button>
         </div>
 

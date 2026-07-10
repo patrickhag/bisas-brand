@@ -1,49 +1,57 @@
+import { ArrowDownRight } from "lucide-react";
+import Image from "next/image";
+
 export default function FounderSection() {
   return (
-    <section className="relative bg-[#f9f9f9] px-8 py-24 overflow-hidden">
+    <section className="relative overflow-hidden bg-[#f9f9f9] px-5 py-16 sm:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">
         {/* top heading */}
-        <div className="flex justify-center items-center gap-8 mb-20">
+        <div className="mb-14 flex flex-col items-center justify-center gap-5 text-center sm:flex-row sm:gap-8 lg:mb-20">
           {/* badge */}
           <button className="flex items-center gap-2 rounded-full bg-[#E4CC72] px-8 py-4 text-[#2B2B2B]">
             Founder
-            <span>↗</span>
+            <ArrowDownRight size={15} />
           </button>
 
           {/* title */}
-          <h2 className="font-mono text-[56px] text-[#3B3B3B]">
+          <h2 className="font-mono text-[36px] text-[#3B3B3B] md:text-[50px]">
             The Leadership
           </h2>
         </div>
 
         {/* content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.35fr_0.85fr] lg:gap-16 xl:grid-cols-[1.45fr_0.8fr]">
           {/* LEFT IMAGE CARD */}
-          <div className="relative rounded-[24px] bg-[#343434] min-h-120 overflow-hidden">
+          <div className="relative mt-12 min-h-[320px] overflow-hidden rounded-[24px] bg-[#2F2F2F] md:mt-20 md:min-h-[410px] md:overflow-visible">
             {/* founder image */}
-            <img
+            <Image
               src="/images/co-founder.png"
               alt="Founder"
-              className="absolute bottom-0 right-0 h-[110%] object-contain"
+              width={487}
+              height={459}
+              className="absolute bottom-0 right-[-18px] z-10 h-[112%] w-auto object-contain sm:h-[122%] md:right-[-8px] md:h-[128%]"
+              priority
             />
 
             {/* overlay text */}
-            <div className="absolute bottom-12 left-12">
-              <h3 className="text-[48px] font-medium leading-none">
+            <div className="absolute bottom-8 left-5 z-20 md:bottom-10 md:left-12">
+              <h3 className="text-[28px] font-medium leading-none md:text-[40px]">
                 <span className="text-[#E4CC72]">Founder’s</span>{" "}
                 <span className="text-white underline">Message</span>
               </h3>
 
               {/* name pill */}
-              <div className="mt-8 flex items-center gap-3 rounded-full border border-[#666] bg-[#454545]/80 px-4 py-2 w-fit">
+              <div className="mt-6 flex w-fit max-w-[calc(100vw-4rem)] items-center gap-3 rounded-full border border-[#666] bg-[#5D5D5D]/80 px-3 py-2 backdrop-blur-sm sm:px-4">
                 {/* avatar */}
-                <img
-                  src="/images/co-founder.png"
+                <Image
+                  src="/founder-pic.png"
                   alt=""
-                  className="h-10 w-10 rounded-full object-cover"
+                  width={40}
+                  height={40}
+                  className="size-10 rounded-full object-cover"
                 />
 
-                <span className="text-[#E4CC72] text-2xl">
+                <span className="truncate text-base text-[#E4CC72] sm:text-xl md:text-2xl">
                   Eng. Bisa Hubert
                 </span>
               </div>
@@ -52,11 +60,11 @@ export default function FounderSection() {
 
           {/* RIGHT CONTENT */}
           <div>
-            <h3 className="text-[56px] font-mono text-[#3B3B3B]">
-              Founder’s Message
+            <h3 className="font-mono text-[34px] text-[#3B3B3B] md:text-[48px]">
+              Founder’ <span className="text-[#8A8A8A]">Message</span>
             </h3>
 
-            <div className="mt-10 space-y-8 text-[#6D6D6D] text-[18px] md:text-[21px] leading-relaxed">
+            <div className="mt-9 max-w-xl space-y-7 text-[16px] leading-relaxed text-[#3F3F3F] md:text-[18px]">
               <p>
                 Boraland is led by a civil engineer and project manager with
                 over six years of experience in construction supervision,
