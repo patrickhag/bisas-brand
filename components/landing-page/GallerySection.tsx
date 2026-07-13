@@ -1,10 +1,4 @@
-import {
-  ArrowDownRight,
-  Heart,
-  MapPin,
-  MoveRight,
-  MoveUpRight,
-} from "lucide-react";
+import { ArrowDownRight, MapPin, MoveRight, MoveUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,20 +17,20 @@ function ProjectCard({ project }: { project: PortfolioProject }) {
     <Link
       href={`/boraland/portfolio?project=${project.id}`}
       aria-label={`View ${project.name} in portfolio`}
-      className="group block w-full max-w-[320px] cursor-pointer rounded-3xl border border-[#A0A0A0] p-1"
+      className="group block h-full w-full cursor-pointer rounded-3xl border border-[#A0A0A0] p-1"
     >
-      <article className="flex flex-col">
+      <article className="flex h-full flex-col">
         <div className="shrink-0 overflow-hidden rounded-2xl bg-[#D9D9D9]">
           {image ? (
             <Image
               src={image}
               alt={project.name}
-              width={320}
-              height={230}
-              className="aspect-[320/230] w-full object-cover"
+              width={520}
+              height={430}
+              className="aspect-[1.2/1] w-full object-cover"
             />
           ) : (
-            <div className="flex aspect-[320/230] items-center justify-center bg-[#F5F0D6]">
+            <div className="flex aspect-[1.2/1] items-center justify-center bg-[#F5F0D6]">
               <span className="text-6xl font-bold text-[#E4CC72]/50">
                 {project.name.charAt(0)}
               </span>
@@ -44,26 +38,17 @@ function ProjectCard({ project }: { project: PortfolioProject }) {
           )}
         </div>
 
-        <div className="mt-3 flex flex-1 flex-col rounded-2xl bg-[#CFCFCF] p-4">
-          <h3 className="line-clamp-2 min-h-14 text-xl font-semibold leading-tight text-[#2B2B2B] sm:text-2xl">
+        <div className="relative mt-3 flex min-h-[124px] flex-1 flex-col rounded-2xl bg-[#CFCFCF] p-4">
+          <h3 className="line-clamp-2 pr-12 text-xl font-semibold leading-tight text-[#2B2B2B] sm:text-2xl">
             {project.name}
           </h3>
 
-          <div className="mt-3 inline-block w-fit max-w-full truncate rounded-full border border-[#555] px-3 py-1 text-sm">
-            {project.cost || project.category}
-          </div>
-
-          <p className="mt-auto flex items-center gap-2 pt-3 text-sm text-[#333]">
+          <p className="mt-3 flex items-center gap-2 pr-12 text-sm text-[#333]">
             <MapPin size={18} className="shrink-0 text-[#555]" />
             <span className="truncate">{project.address || "Rwanda"}</span>
           </p>
-        </div>
 
-        <div className="mt-4 flex w-full shrink-0 items-center justify-between rounded-full bg-[#D9C36F] px-4 py-3">
-          <span className="flex size-10 items-center justify-center rounded-full border border-[#444]">
-            <Heart size={15} />
-          </span>
-          <span className="flex size-10 items-center justify-center rounded-full bg-[#2D2D2D] text-[#D9C36F] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-105">
+          <span className="absolute right-3 top-3 flex size-10 translate-y-2 items-center justify-center rounded-full bg-[#2D2D2D] text-[#D9C36F] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
             <MoveUpRight
               size={15}
               className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -98,18 +83,16 @@ export default async function GallerySection() {
         <div className="mb-14 flex flex-col items-center justify-center gap-6 text-center md:flex-row md:items-start md:gap-10 md:text-left lg:mb-20">
           <RedirectButton text="Experience" IconType={ArrowDownRight} />
 
-          <div className={geistSans.className}>
-            <h2 className="font-mono text-[36px] leading-none text-[#353535] sm:text-[52px]">
-              Your Construction
-            </h2>
-            <h2 className="font-mono text-[36px] leading-none text-[#353535] sm:text-[52px]">
-              Insights Gallery
-            </h2>
+          <div
+            className={`${geistSans.className} text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap `}
+          >
+            <h2 className="text-[#353535]">Your Construction</h2>
+            <h2 className="text-[#8A8A8A]">Insights Gallery</h2>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 xl:grid-cols-[1.3fr_1fr]">
-          <div className="relative h-[360px] overflow-hidden rounded-[24px] sm:h-[520px] sm:rounded-[32px] lg:h-140">
+        <div className="grid grid-cols-1 gap-10 xl:grid-cols-[0.95fr_1.25fr]">
+          <div className="relative h-90 overflow-hidden rounded-[24px] sm:h-130 sm:rounded-[32px] lg:h-140">
             {featuredProject && featuredImage ? (
               <Image
                 src={featuredImage}
@@ -151,7 +134,7 @@ export default async function GallerySection() {
             </div>
 
             {cardProjects.length > 0 ? (
-              <div className="flex flex-col items-center gap-6 lg:flex-row xl:items-start">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {cardProjects.map((project) => (
                   <ProjectCard key={project.id} project={project} />
                 ))}

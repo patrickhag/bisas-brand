@@ -2,24 +2,28 @@
 
 import InquiryCardView from "@/components/inquiries/InquiryCardView";
 import NewsletterPanel from "@/components/inquiries/NewsletterPanel";
+import ServicesPanel from "@/components/inquiries/ServicesPanel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Inquiry, NewsletterSubscriber } from "./types";
+import { Inquiry, NewsletterSubscriber, ServiceItem } from "./types";
 
 type InquiriesDashboardProps = {
   consultationInquiries: Inquiry[];
   contactInquiries: Inquiry[];
   newsletterSubscribers: NewsletterSubscriber[];
+  services: ServiceItem[];
 };
 
 export default function InquiriesDashboard({
   consultationInquiries,
   contactInquiries,
   newsletterSubscribers,
+  services,
 }: InquiriesDashboardProps) {
   return (
-    <Tabs defaultValue="Consultations">
+    <Tabs defaultValue="Services">
       <TabsList>
         {[
+          { key: "Services", count: services.length },
           { key: "Consultations", count: consultationInquiries.length },
           { key: "Contacts", count: contactInquiries.length },
           { key: "Newsletter", count: newsletterSubscribers.length },
@@ -29,6 +33,10 @@ export default function InquiriesDashboard({
           </TabsTrigger>
         ))}
       </TabsList>
+
+      <TabsContent value="Services">
+        <ServicesPanel initialServices={services} />
+      </TabsContent>
 
       <TabsContent value="Consultations">
         <InquiryCardView inquiries={consultationInquiries} />

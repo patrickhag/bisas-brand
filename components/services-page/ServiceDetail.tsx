@@ -1,3 +1,4 @@
+import { geistSans } from "@/lib/utils";
 import { MoveRight, Minus } from "lucide-react";
 
 export default function ServiceDetailSection() {
@@ -17,9 +18,11 @@ export default function ServiceDetailSection() {
 
           {/* Main heading + description */}
           <div className="max-w-3xl text-center">
-            <h2 className="text-[36px] leading-none md:text-[56px]">
-              <span className="font-mono text-white">Client</span>{" "}
-              <span className="font-mono text-[#E4CC72]">Representation</span>
+            <h2
+              className={`font-mono text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap ${geistSans.className}`}
+            >
+              <span className="text-white">Client</span>{" "}
+              <span className="text-[#E4CC72]">Representation</span>
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-[#ECECEC]">
@@ -38,9 +41,15 @@ export default function ServiceDetailSection() {
         <div className="grid grid-cols-1 gap-6 py-10 md:grid-cols-2 md:gap-12">
           {/* Left */}
           <div className="flex items-start gap-6">
-            <Minus size={32} strokeWidth={3} className="mt-2 shrink-0 text-white md:size-10" />
+            <Minus
+              size={32}
+              strokeWidth={3}
+              className="mt-2 shrink-0 text-white md:size-10"
+            />
 
-            <h3 className="font-mono text-[26px] text-white md:text-[32px]">
+            <h3
+              className={`font-mono text-[26px] text-white md:text-[32px] ${geistSans.className}`}
+            >
               Scope Includes
             </h3>
           </div>
@@ -64,9 +73,15 @@ export default function ServiceDetailSection() {
         <div className="grid grid-cols-1 gap-6 py-10 md:grid-cols-2 md:gap-12">
           {/* Left */}
           <div className="flex items-start gap-6">
-            <Minus size={32} strokeWidth={3} className="mt-2 shrink-0 text-white md:size-10" />
+            <Minus
+              size={32}
+              strokeWidth={3}
+              className="mt-2 shrink-0 text-white md:size-10"
+            />
 
-            <h3 className="font-mono text-[26px] text-white md:text-[32px]">
+            <h3
+              className={`font-mono text-[26px] text-white md:text-[32px] ${geistSans.className}`}
+            >
               Ideal For
             </h3>
           </div>

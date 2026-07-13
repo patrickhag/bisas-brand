@@ -22,9 +22,9 @@ export default function whoWeAreSection() {
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
         {/* Top button */}
         <RedirectButton text="What we do" IconType={ArrowDownRight} />
-        <div className={`${geistSans.className}`}>
+        <div className={`${geistSans.className} mt-5`}>
           {/* Main heading */}
-          <h2 className="max-w-4xl font-mono text-4xl leading-tight text-white md:text-5xl">
+          <h2 className="max-w-4xl text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap text-white">
             We Represent Property Owners,
             <br />
             <span className="text-gray-300">We Protect Investments.</span>
@@ -34,8 +34,8 @@ export default function whoWeAreSection() {
         {/* Paragraph 1 */}
         <p className="mt-14 text-gray-300 text-base md:text-lg leading-relaxed max-w-3xl">
           You have invested in land, in a dream, in Rwanda’s future. But you are
-          not there every day.
-          <span className="font-semibold text-[#D8C07A]"> We are.</span>
+          not there every day.{" "}
+          <span className="font-semibold text-[#D8C07A]">We are.</span>
         </p>
 
         {/* Paragraph 2 */}

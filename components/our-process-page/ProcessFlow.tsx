@@ -2,76 +2,64 @@ const steps = [
   {
     title: "Initial Inquiry",
     description: "Basic project information and fit assessment.",
-    className: "left-[0px] top-[0px] w-[120px]",
-    descriptionClassName: "w-[150px]",
+    position: "left-0 top-0",
+    width: "w-[clamp(145px,10vw,165px)]",
+    descriptionClassName: "",
   },
   {
     title: "Pre-Construction Advisory",
     description: "Paid feasibility, budgeting, and planning.",
-    className: "left-[182px] top-[82px] w-[232px]",
-    descriptionClassName: "w-[210px]",
+    position: "left-[16%] top-[92px]",
+    width: "w-[clamp(220px,17vw,285px)]",
+    descriptionClassName: "",
   },
   {
     title: "Contract & Onboarding",
     description: "Defined scope, reporting structure, and engagement terms.",
-    className: "left-[504px] top-[0px] w-[154px]",
-    descriptionClassName: "w-[200px]",
+    position: "left-[44%] top-0",
+    width: "w-[clamp(185px,12vw,205px)]",
+    descriptionClassName: "pl-5",
   },
   {
     title: "Execution & Oversight",
     description: "Construction supervision, cost control, and reporting.",
-    className: "left-[742px] top-[82px] w-[176px]",
-    descriptionClassName: "w-[230px]",
+    position: "left-[65%] top-[92px]",
+    width: "w-[clamp(195px,13vw,220px)]",
+    descriptionClassName: "",
   },
   {
     title: "Project Close-Out",
     description: "Final inspections and documentation.",
-    className: "left-[980px] top-[0px] w-[154px]",
-    descriptionClassName: "w-[190px]",
+    position: "right-0 top-0",
+    width: "w-[clamp(165px,11vw,190px)]",
+    descriptionClassName: "pl-5",
   },
-];
+] as const;
 
-const connectorLines = [
-  "left-[120px] top-[34px] h-px w-[69px]",
-  "left-[189px] top-[34px] h-[82px] w-px",
-  "left-[189px] top-[116px] h-px w-[315px]",
-  "left-[658px] top-[34px] h-px w-[161px]",
-  "left-[819px] top-[34px] h-[82px] w-px",
-  "left-[819px] top-[116px] h-px w-[161px]",
-  "left-[918px] top-[116px] h-px w-[132px]",
-  "left-[1050px] top-[34px] h-[82px] w-px",
-];
-
-const connectorDots = [
-  "left-[186px] top-[31px]",
-  "left-[501px] top-[113px]",
-  "left-[816px] top-[31px]",
-  "left-[977px] top-[113px]",
-];
-
-function StepLabel({
+function StepCard({
   title,
   description,
-  className,
+  width,
   descriptionClassName,
-}: {
-  title: string;
-  description: string;
-  className: string;
-  descriptionClassName: string;
-}) {
+}: Pick<
+  (typeof steps)[number],
+  "title" | "description" | "width" | "descriptionClassName"
+>) {
   return (
-    <div className={`absolute ${className}`}>
+    <div className={width}>
       <div className="relative">
-        <div className="absolute -left-3 -top-3 h-full w-full bg-[#737373]" />
-        <div className="relative bg-[#2b2b2b] px-4 py-2.5 text-white">
-          <h3 className="font-mono text-[22px] font-medium leading-[0.95] tracking-normal">
+        <div
+          aria-hidden="true"
+          className="absolute -left-3 -top-3 h-full w-full bg-[#777]"
+        />
+        <div className="relative bg-[#2c2c2c] px-4 py-2.5 text-white">
+          <h3 className="text-[clamp(18px,1.35vw,24px)] font-medium leading-[0.98]">
             {title}
           </h3>
         </div>
       </div>
       <p
-        className={`mt-5 font-mono text-[16px] font-semibold leading-[0.96] tracking-normal text-[#2b2b2b] ${descriptionClassName}`}
+        className={`mt-4 max-w-[250px] text-[clamp(14px,0.95vw,17px)] font-medium leading-[1.08] text-[#2c2c2c] ${descriptionClassName}`}
       >
         {description}
       </p>
@@ -79,50 +67,109 @@ function StepLabel({
   );
 }
 
+function DesktopProcessFlow() {
+  return (
+    <ol
+      aria-label="Our five-step project process"
+      className="relative h-[245px] w-full"
+    >
+      <svg
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-[190px] w-full overflow-visible"
+        preserveAspectRatio="none"
+        viewBox="0 0 1000 190"
+      >
+        <path
+          d="M 94 32 H 180 V 124 H 440 V 32 H 675 V 124 H 885 V 32 H 1000"
+          fill="none"
+          stroke="#626262"
+          strokeWidth="1"
+          vectorEffect="non-scaling-stroke"
+        />
+        {[
+          [180, 32],
+          [440, 124],
+          [675, 32],
+          [885, 124],
+        ].map(([x, y]) => (
+          <rect
+            key={`${x}-${y}`}
+            x={x - 2.5}
+            y={y - 2.5}
+            width="5"
+            height="5"
+            fill="#2c2c2c"
+            vectorEffect="non-scaling-stroke"
+          />
+        ))}
+      </svg>
+
+      {steps.map((step, index) => (
+        <li
+          key={step.title}
+          aria-label={`Step ${index + 1}: ${step.title}`}
+          className={`absolute z-10 ${step.position}`}
+        >
+          <StepCard {...step} />
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function MobileProcessFlow() {
+  return (
+    <ol
+      aria-label="Our five-step project process"
+      className="mx-auto max-w-2xl"
+    >
+      {steps.map((step, index) => (
+        <li
+          key={step.title}
+          className="relative grid grid-cols-[12px_minmax(0,1fr)] gap-4 pb-11 last:pb-0"
+        >
+          {index < steps.length - 1 && (
+            <div
+              aria-hidden="true"
+              className="absolute bottom-0 left-[3px] top-3 w-px bg-[#777]"
+            />
+          )}
+
+          <div
+            aria-hidden="true"
+            className="relative z-10 mt-3 size-[7px] bg-[#2c2c2c]"
+          />
+
+          <div className="min-w-0 pt-1">
+            <div className="relative max-w-lg">
+              <div className="absolute -left-2 -top-2 h-full w-full bg-[#777]" />
+              <div className="relative bg-[#2c2c2c] px-4 py-3 text-white sm:px-5">
+                <h3 className="text-[22px] font-medium leading-none sm:text-[26px]">
+                  {step.title}
+                </h3>
+              </div>
+            </div>
+            <p
+              className={`mt-4 max-w-md text-base font-medium leading-snug text-[#2c2c2c] sm:text-lg ${step.descriptionClassName}`}
+            >
+              {step.description}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 export default function ProcessFlow() {
   return (
-    <section className="relative overflow-hidden bg-white px-6 py-16 md:px-10 xl:px-20">
-      <div className="mx-auto max-w-[1134px]">
-        <div className="hidden xl:block">
-          <div className="relative h-[235px] w-[1134px]">
-            {connectorLines.map((className) => (
-              <div
-                key={className}
-                className={`absolute bg-[#5f5f5f] ${className}`}
-              />
-            ))}
-            {connectorDots.map((className) => (
-              <div
-                key={className}
-                className={`absolute size-[7px] bg-[#2b2b2b] ${className}`}
-              />
-            ))}
-            {steps.map((step) => (
-              <StepLabel key={step.title} {...step} />
-            ))}
-          </div>
+    <section className="overflow-hidden bg-white px-5 py-14 sm:px-8 lg:px-12 min-[1200px]:px-16 min-[1200px]:py-16">
+      <div className="mx-auto max-w-375">
+        <div className="hidden min-[1200px]:block">
+          <DesktopProcessFlow />
         </div>
-
-        <div className="space-y-8 xl:hidden">
-          {steps.map((step, index) => (
-            <div key={step.title} className="relative pl-6">
-              {index < steps.length - 1 && (
-                <div className="absolute left-[7px] top-9 h-[calc(100%+2rem)] w-px bg-[#5f5f5f]" />
-              )}
-              <div className="absolute left-1 top-8 size-[7px] bg-[#2b2b2b]" />
-              <div className="relative max-w-[360px]">
-                <div className="absolute -left-3 -top-3 h-full w-full bg-[#737373]" />
-                <div className="relative bg-[#2b2b2b] px-5 py-3 text-white">
-                  <h3 className="font-mono text-[26px] font-medium leading-[0.98] tracking-normal">
-                    {step.title}
-                  </h3>
-                </div>
-              </div>
-              <p className="mt-5 max-w-[340px] font-mono text-[18px] font-semibold leading-tight tracking-normal text-[#2b2b2b]">
-                {step.description}
-              </p>
-            </div>
-          ))}
+        <div className="min-[1200px]:hidden">
+          <MobileProcessFlow />
         </div>
       </div>
     </section>

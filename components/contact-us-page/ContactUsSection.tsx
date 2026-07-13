@@ -171,7 +171,7 @@ export default function ContactSection() {
 
             <div className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#E4CC72] px-4 py-3 text-[#2B2B2B]">
               <Mail size={16} />
-              <span className="min-w-0 truncate text-sm font-medium">
+              <span className="min-w-0 break-all text-center text-sm font-medium">
                 boralandltd@gmail.com
               </span>
             </div>

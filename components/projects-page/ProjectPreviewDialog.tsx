@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { geistSans } from "@/lib/utils";
 
 type Project = {
   title: string;
@@ -60,7 +61,7 @@ export function ProjectPreviewDialog({ open, onOpenChange, project }: Props) {
     <dialog
       ref={dialogRef}
       aria-labelledby="project-preview-title"
-      className="fixed left-1/2 top-1/2 z-50 m-0 w-[90vw] max-w-[1280px] -translate-x-1/2 -translate-y-1/2 overflow-visible border-none bg-transparent p-0 text-left shadow-none outline-none backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+      className="fixed left-1/2 top-1/2 z-50 m-0 w-[calc(100vw-1.5rem)] max-w-[1280px] -translate-x-1/2 -translate-y-1/2 overflow-visible border-none bg-transparent p-0 text-left shadow-none outline-none backdrop:bg-black/70 backdrop:backdrop-blur-sm sm:w-[90vw]"
       onCancel={(event) => {
         event.preventDefault();
         closeDialog();
@@ -71,18 +72,18 @@ export function ProjectPreviewDialog({ open, onOpenChange, project }: Props) {
         }
       }}
     >
-      <div className="relative max-h-[88vh] w-full overflow-hidden rounded-[24px] border border-[#D8D8D8] bg-white shadow-2xl">
+      <div className="relative max-h-[calc(100dvh-1.5rem)] w-full overflow-y-auto overscroll-contain rounded-[20px] border border-[#D8D8D8] bg-white shadow-2xl sm:max-h-[88vh] sm:rounded-[24px]">
         <button
           type="button"
           onClick={closeDialog}
-          className="absolute right-5 top-5 z-30 flex size-10 items-center justify-center rounded-lg bg-[#2C2C2C] text-white transition-colors hover:bg-black"
+          className="absolute right-3 top-3 z-30 flex size-11 items-center justify-center rounded-lg bg-[#2C2C2C] text-white transition-colors hover:bg-black sm:right-5 sm:top-5"
           aria-label="Close preview"
         >
-            <X size={22} />
+          <X size={22} />
         </button>
 
         <div className="relative p-4 pb-0 sm:p-5 sm:pb-0">
-          <div className="relative h-[40vh] min-h-[260px] w-full overflow-hidden rounded-sm md:h-[52vh] md:min-h-[400px]">
+          <div className="relative h-[34dvh] min-h-52 w-full overflow-hidden rounded-sm sm:h-[40vh] sm:min-h-[260px] md:h-[52vh] md:min-h-[400px]">
             {project.images[activeImageIndex] && (
               <Image
                 src={project.images[activeImageIndex]}
@@ -97,11 +98,11 @@ export function ProjectPreviewDialog({ open, onOpenChange, project }: Props) {
         </div>
 
         <div className="relative bg-gradient-to-b from-white via-[#D7D7D7] to-[#2C2C2C] px-5 pb-5 pt-4 text-white sm:px-7 md:px-8 md:pb-6">
-          <div className="flex items-start justify-between gap-5">
+          <div className="flex flex-col items-start gap-5 sm:flex-row sm:justify-between">
             <div className="min-w-0">
               <h2
                 id="project-preview-title"
-                className="font-mono text-3xl font-semibold leading-none text-[#2C2C2C] md:text-4xl lg:text-5xl"
+                className={`font-mono text-3xl font-semibold leading-none text-[#2C2C2C] md:text-4xl lg:text-5xl ${geistSans.className}`}
               >
                 {project.title}
               </h2>

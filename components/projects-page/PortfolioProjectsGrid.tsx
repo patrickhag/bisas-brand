@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { PortfolioProject } from "@/app/boraland/portfolio/types";
 import { ProjectPreviewDialog } from "@/components/projects-page/ProjectPreviewDialog";
+import { geistSans } from "@/lib/utils";
 
 const PROJECTS_PER_PAGE = 4;
 
@@ -93,7 +94,7 @@ export function PortfolioProjectsGrid({
   return (
     <>
       <section className="bg-white px-6 pb-24 pt-10 md:px-12 xl:px-24">
-        <div className="mx-auto max-w-[1320px]">
+        <div className="mx-auto max-w-330">
           {shouldShowControls && (
             <div className="mb-14 flex flex-col gap-5 border-y border-[#D8D8D8] py-6 md:flex-row md:items-center md:justify-between">
               <label className="flex w-full items-center gap-3 rounded-full border border-[#D8D8D8] px-5 py-3 md:max-w-md">
@@ -204,12 +205,12 @@ function ProjectCard({
     <article
       onClick={onSelect}
       className={`group grid cursor-pointer overflow-hidden border-b border-[#CFCFCF] bg-white md:grid-cols-2 ${
-        isLarge ? "min-h-[440px]" : "min-h-[200px]"
+        isLarge ? "min-h-110" : "min-h-110 md:min-h-50"
       }`}
     >
       <div
         className={`relative bg-[#F5F0D6] ${
-          isLarge ? "min-h-[360px]" : "min-h-[190px]"
+          isLarge ? "min-h-90" : "min-h-90 md:min-h-47.5"
         } ${isReversed ? "md:order-2" : ""}`}
       >
         {image ? (
@@ -230,7 +231,7 @@ function ProjectCard({
       </div>
 
       <div
-        className={`flex min-h-full flex-col p-4 md:p-5 ${
+        className={`flex min-h-full flex-col p-5 md:p-6 ${
           isReversed ? "items-end text-right md:order-1" : ""
         }`}
       >
@@ -244,8 +245,8 @@ function ProjectCard({
           <div>
             <h3
               className={`font-mono font-semibold leading-none text-[#2C2C2C] ${
-                isLarge ? "text-3xl" : "text-xl"
-              }`}
+                isLarge ? "text-[34px]" : "text-[22px]"
+              } ${geistSans.className}`}
             >
               {project.name}
             </h3>
@@ -257,7 +258,7 @@ function ProjectCard({
             >
               <span
                 className={`line-clamp-2 max-w-44 rounded-full border border-[#D8D8D8] bg-white px-3 py-1 font-mono leading-tight text-[#5A5A5A] ${
-                  isLarge ? "text-xs" : "text-[11px]"
+                  isLarge ? "text-sm" : "text-xs"
                 }`}
               >
                 {address}
@@ -267,7 +268,7 @@ function ProjectCard({
                 <span
                   key={`${tag}-${tagIndex}`}
                   className={`line-clamp-1 rounded-full border border-[#D8D8D8] bg-white px-3 py-1 font-mono text-[#5A5A5A] ${
-                    isLarge ? "text-xs" : "text-[11px]"
+                    isLarge ? "text-sm" : "text-xs"
                   }`}
                 >
                   {tag}
@@ -281,13 +282,9 @@ function ProjectCard({
 
         <p
           dir="ltr"
-          className={`mt-auto line-clamp-5 font-mono leading-tight text-[#6A6A6A] ${
-            isLarge ? "max-w-[280px] text-base" : "max-w-75 text-xs"
-          } ${
-            isReversed
-              ? "text-right"
-              : "text-left"
-          }`}
+          className={`mt-auto line-clamp-5 rounded-[10px] px-2 py-2 font-mono leading-snug text-[#6A6A6A] ${
+            isLarge ? "max-w-80 text-[17px]" : "max-w-80 text-sm"
+          } ${isReversed ? "text-right" : "text-left"}`}
         >
           {project.description ||
             "Client represented from planning through execution, including contractor coordination, quality control, and progress reporting."}

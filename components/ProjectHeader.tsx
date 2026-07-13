@@ -1,3 +1,4 @@
+import { geistSans } from "@/lib/utils";
 import { ArrowDownRight } from "lucide-react";
 
 export function ProjectHeader() {
@@ -14,7 +15,9 @@ export function ProjectHeader() {
 
         {/* center title */}
         <div>
-          <h2 className="font-mono text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap">
+          <h2
+            className={`text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap ${geistSans.className}`}
+          >
             <span className="text-[#2C2C2C] font-bold">Client </span>{" "}
             <span className="text-[#E4CC72]">Representation</span>
           </h2>

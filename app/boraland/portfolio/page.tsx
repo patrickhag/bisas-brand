@@ -31,7 +31,7 @@ export default async function PortfolioPage() {
       <Suspense
         fallback={
           <div className="px-6 pb-24 pt-10 md:px-12 xl:px-24">
-            <div className="mx-auto h-72 max-w-[1320px] rounded-3xl border border-[#E5E5E5] bg-white/70" />
+            <div className="mx-auto h-72 max-w-330 rounded-3xl border border-[#E5E5E5] bg-white/70" />
           </div>
         }
       >

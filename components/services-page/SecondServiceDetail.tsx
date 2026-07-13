@@ -1,3 +1,4 @@
+import { geistSans } from "@/lib/utils";
 import { MoveRight, Minus } from "lucide-react";
 
 export default function SecondServiceSection() {
@@ -17,7 +18,9 @@ export default function SecondServiceSection() {
 
           {/* heading */}
           <div className="text-center">
-            <h2 className="text-[36px] leading-tight md:text-[56px]">
+            <h2
+              className={`font-mono text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap ${geistSans.className}`}
+            >
               <span className="block text-[#2C2C2C]">Pre-Construction</span>
 
               <span className="text-[#2C2C2C]">Advisory </span>
@@ -41,9 +44,15 @@ export default function SecondServiceSection() {
         <div className="grid grid-cols-1 gap-6 py-10 md:grid-cols-2 md:gap-12">
           {/* left */}
           <div className="flex items-start gap-6">
-            <Minus size={32} strokeWidth={3} className="mt-2 shrink-0 text-[#2C2C2C] md:size-10" />
+            <Minus
+              size={32}
+              strokeWidth={3}
+              className="mt-2 shrink-0 text-[#2C2C2C] md:size-10"
+            />
 
-            <h3 className="text-[26px] font-semibold text-[#2C2C2C] md:text-[32px]">
+            <h3
+              className={`text-[26px] font-semibold text-[#2C2C2C] md:text-[32px] ${geistSans.className}`}
+            >
               Includes
             </h3>
           </div>

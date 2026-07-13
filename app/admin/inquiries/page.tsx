@@ -7,6 +7,7 @@ import {
 } from "@/db/schema";
 import { db } from "@/lib/db";
 import InquiriesDashboard from "@/components/inquiries/InquiriesDashboard";
+import { getAllServices } from "@/app/actions/services";
 import type {
   Inquiry,
   NewsletterSubscriber,
@@ -48,6 +49,7 @@ export default async function InquiriesPage() {
     allConsultationRequests,
     allContactMessages,
     allNewsletterSubscribers,
+    allServices,
   ] = await Promise.all([
     db
       .select()
@@ -58,6 +60,7 @@ export default async function InquiriesPage() {
       .select()
       .from(newsletterSubscribers)
       .orderBy(desc(newsletterSubscribers.createdAt)),
+    getAllServices(),
   ]);
 
   const consultationInquiries: Inquiry[] = allConsultationRequests.map(
@@ -114,6 +117,7 @@ export default async function InquiriesPage() {
         consultationInquiries={consultationInquiries}
         contactInquiries={contactInquiries}
         newsletterSubscribers={serializedNewsletterSubscribers}
+        services={allServices}
       />
     </div>
   );

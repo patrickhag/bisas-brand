@@ -1,3 +1,4 @@
+import { geistSans } from "@/lib/utils";
 import {
   MoveRight,
   FileCheck,
@@ -38,19 +39,24 @@ function RequirementCard({ item }: { item: TItem }) {
   const Icon = item.icon;
 
   return (
-    <div className="flex h-[270px] w-full max-w-[275px] flex-col justify-between rounded-[24px] bg-white p-6 sm:h-[300px]">
-      {/* top number */}
-      <span className="text-[34px] font-light text-[#2B2B2B]">
-        {item.number}
-      </span>
+    <div className="flex w-full max-w-[280px] flex-col items-center sm:max-w-[220px]">
+      <div className="flex h-[190px] w-full flex-col justify-between rounded-[22px] bg-white p-5 sm:h-[180px] sm:p-5">
+        {/* top number */}
+        <span className="text-[30px] font-light text-[#2B2B2B] sm:text-[26px]">
+          {item.number}
+        </span>
 
-      {/* center icon */}
-      <div className="flex justify-center">
-        <Icon size={56} strokeWidth={1.6} className="text-[#E4CC72]" />
+        {/* center icon */}
+        <div className="flex flex-1 items-center justify-center">
+          <Icon
+            size={54}
+            strokeWidth={1.6}
+            className="text-[#E4CC72] sm:size-12"
+          />
+        </div>
       </div>
 
-      {/* bottom title */}
-      <div className="text-center text-2xl leading-none sm:text-[28px]">
+      <div className="mt-4 text-center text-[24px] leading-none sm:text-[22px]">
         <span className="font-medium text-[#2B2B2B]">{item.title}</span>{" "}
         <span className="font-medium text-[#E4CC72]">{item.highlight}</span>
       </div>
@@ -75,7 +81,9 @@ export default function ThirdServiceSection() {
 
           {/* heading */}
           <div className="text-center">
-            <h2 className="font-mono text-[36px] leading-none md:text-[56px]">
+            <h2
+              className={`font-mono text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap ${geistSans.className}`}
+            >
               <span className="text-[#2C2C2C]">Design &</span>{" "}
               <span className="text-[#E4CC72]">Build</span>
             </h2>

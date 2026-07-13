@@ -1,3 +1,4 @@
+import { geistSans } from "@/lib/utils";
 import { CallToButton } from "../CallToAction";
 
 type IntroSectionProps = {
@@ -18,13 +19,13 @@ export default function IntroSection({
   return (
     <section className="bg-white px-5 py-12 sm:px-8 md:px-16 md:py-16">
       <div className="mx-auto max-w-5xl">
-        <div className="text-center">
+        <div className={`text-center ${geistSans.className}`}>
           <h1 className="leading-none">
             <span className="text-[42px] font-semibold text-[#2B2B2B] sm:text-[56px] md:text-[84px]">
               {titlePrefix}
             </span>
 
-            <span className="text-[42px] text-[#2C2C2C] sm:text-[56px] md:text-[84px]">
+            <span className="text-[42px] text-[#8A8A8A] sm:text-[56px] md:text-[84px]">
               {titleHighlight}
             </span>
           </h1>

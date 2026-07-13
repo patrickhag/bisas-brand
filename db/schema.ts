@@ -1,10 +1,4 @@
-import {
-  boolean,
-  pgTable,
-  text,
-  pgEnum,
-  timestamp,
-} from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, pgEnum, timestamp } from "drizzle-orm/pg-core";
 
 export const projectStatusEnum = pgEnum("project_status", [
   "published",
@@ -33,6 +27,7 @@ export const services = pgTable("services", {
   name: text("name").notNull(),
   image: text("image"),
   description: text("description").notNull().default(""),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const consultationRequests = pgTable("consultation_requests", {

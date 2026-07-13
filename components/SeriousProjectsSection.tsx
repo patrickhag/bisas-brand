@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { CallToButton } from "./CallToAction";
+import { geistSans } from "@/lib/utils";
 
 export default function SeriousProjectsSection() {
   return (
@@ -16,7 +17,7 @@ export default function SeriousProjectsSection() {
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl text-center">
-        <p className="text-gray-100 text-sm md:text-lg leading-relaxed max-w-3xl mx-auto">
+        <p className="text-gray-100 mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed">
           Boraland is an engineer-led construction and project management firm
           based in Rwanda. We act as your professional representative on the
           ground, overseeing every contractor, controlling every cost, and
@@ -24,13 +25,15 @@ export default function SeriousProjectsSection() {
           informed. We stay accountable.
         </p>
 
-        <h2 className="mt-12 text-[34px] font-semibold tracking-tight text-gray-200 md:mt-14 md:text-6xl">
+        <h2
+          className={`mt-12 text-[34px] font-semibold tracking-tight text-gray-200 md:mt-14 md:text-4xl ${geistSans.className}`}
+        >
           Serious Projects Begin With Clarity.
         </h2>
 
         <CallToButton
           ctaHref="/boraland/request-consultation"
-          ctaLabel="Request a Consultation"
+          ctaLabel="Start Your Project Conversation"
         />
       </div>
     </section>

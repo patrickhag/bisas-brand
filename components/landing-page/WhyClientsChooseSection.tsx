@@ -1,6 +1,7 @@
 import { ArrowDownRight } from "lucide-react";
 import Image from "next/image";
 import { RedirectButton } from "../RedirectButton";
+import { geistSans } from "@/lib/utils";
 
 const reasons = [
   {
@@ -29,19 +30,20 @@ export default function WhyClientsChooseSection() {
   return (
     <section
       id="why-choose-us"
-      className="bg-white px-6 py-16 md:px-10 lg:py-20"
+      className="bg-white px-4 py-16 sm:px-6 md:px-10 lg:py-20"
     >
       <div className="mx-auto max-w-7xl border-b border-[#E1E1E1] pb-12">
         <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-8">
           <RedirectButton text="WHY BORALAND" IconType={ArrowDownRight} />
-
-          <h2 className="text-center font-mono text-[34px] leading-none text-[#2B2B2B] md:text-[42px]">
+          <h2
+            className={`text-center text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap text-[#2B2B2B] ${geistSans.className}`}
+          >
             Why Clients <span className="text-[#777777]">Choose Boraland</span>
           </h2>
         </div>
 
         <div className="mt-14 grid items-start gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-20">
-          <div className="relative min-h-[360px] md:min-h-[390px]">
+          <div className="relative min-h-[390px] sm:min-h-[360px] md:min-h-[390px]">
             <div className="absolute inset-0 overflow-hidden rounded-xl bg-[#292929]" />
 
             <Image
@@ -56,8 +58,8 @@ export default function WhyClientsChooseSection() {
 
             <div className="absolute inset-0 z-20 overflow-hidden rounded-xl bg-gradient-to-r from-black/80 via-black/45 to-black/5" />
 
-            <div className="absolute bottom-8 left-8 z-30 max-w-[440px] md:left-14">
-              <h3 className="text-[28px] font-semibold leading-tight text-white md:text-[32px]">
+            <div className="absolute inset-x-5 bottom-6 z-30 max-w-[440px] sm:bottom-8 sm:left-8 sm:right-auto md:left-14">
+              <h3 className="text-2xl font-semibold leading-tight text-white sm:text-[28px] md:text-[32px]">
                 <span className="text-[#F2D879]">Just Talk to Us & </span>
                 <span className="underline decoration-white decoration-2 underline-offset-4">
                   Track Your Project,
@@ -87,7 +89,7 @@ export default function WhyClientsChooseSection() {
               {reasons.map((reason) => (
                 <li
                   key={reason.text}
-                  className="grid grid-cols-[26px_1fr] gap-7"
+                  className="grid grid-cols-[20px_minmax(0,1fr)] gap-4 sm:grid-cols-[26px_minmax(0,1fr)] sm:gap-7"
                 >
                   <span
                     className={`mt-2 h-1.5 w-6 ${
@@ -95,7 +97,7 @@ export default function WhyClientsChooseSection() {
                     }`}
                   />
                   <p
-                    className={`max-w-[430px] text-[22px] font-semibold leading-[0.95] ${
+                    className={`max-w-[430px] text-lg font-semibold leading-tight sm:text-[22px] sm:leading-[0.95] ${
                       reason.muted ? "text-[#777777]" : "text-[#2B2B2B]"
                     }`}
                   >

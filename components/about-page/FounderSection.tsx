@@ -1,5 +1,7 @@
+import { geistSans } from "@/lib/utils";
 import { ArrowDownRight } from "lucide-react";
 import Image from "next/image";
+import { RedirectButton } from "../RedirectButton";
 
 export default function FounderSection() {
   return (
@@ -8,34 +10,33 @@ export default function FounderSection() {
         {/* top heading */}
         <div className="mb-14 flex flex-col items-center justify-center gap-5 text-center sm:flex-row sm:gap-8 lg:mb-20">
           {/* badge */}
-          <button className="flex items-center gap-2 rounded-full bg-[#E4CC72] px-8 py-4 text-[#2B2B2B]">
-            Founder
-            <ArrowDownRight size={15} />
-          </button>
+          <RedirectButton text="Founder" IconType={ArrowDownRight} />
 
           {/* title */}
-          <h2 className="font-mono text-[36px] text-[#3B3B3B] md:text-[50px]">
-            The Leadership
+          <h2
+            className={`font-mono text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap ${geistSans.className}`}
+          >
+            The <span className="text-[#8A8A8A]">Leadership</span>
           </h2>
         </div>
 
         {/* content */}
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.35fr_0.85fr] lg:gap-16 xl:grid-cols-[1.45fr_0.8fr]">
           {/* LEFT IMAGE CARD */}
-          <div className="relative mt-12 min-h-[320px] overflow-hidden rounded-[24px] bg-[#2F2F2F] md:mt-20 md:min-h-[410px] md:overflow-visible">
+          <div className="relative mt-8 min-h-[390px] overflow-hidden rounded-[24px] bg-[#2F2F2F] sm:mt-12 sm:min-h-[360px] md:mt-20 md:min-h-[410px] md:overflow-visible">
             {/* founder image */}
             <Image
               src="/images/co-founder.png"
               alt="Founder"
               width={487}
               height={459}
-              className="absolute bottom-0 right-[-18px] z-10 h-[112%] w-auto object-contain sm:h-[122%] md:right-[-8px] md:h-[128%]"
+              className="absolute bottom-0 right-[-44px] z-10 h-[92%] w-auto object-contain sm:right-[-18px] sm:h-[122%] md:right-[-8px] md:h-[128%]"
               priority
             />
 
             {/* overlay text */}
-            <div className="absolute bottom-8 left-5 z-20 md:bottom-10 md:left-12">
-              <h3 className="text-[28px] font-medium leading-none md:text-[40px]">
+            <div className="absolute inset-x-5 bottom-6 z-20 sm:inset-x-auto sm:bottom-8 md:bottom-10 md:left-12">
+              <h3 className="max-w-56 text-2xl font-medium leading-tight sm:max-w-none sm:text-[28px] sm:leading-none md:text-[40px]">
                 <span className="text-[#E4CC72]">Founder’s</span>{" "}
                 <span className="text-white underline">Message</span>
               </h3>

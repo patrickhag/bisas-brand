@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { RequestConsultationModal } from "@/components/request-consultation/RequestConsultationModal";
 import { RedirectButton } from "../RedirectButton";
+import { geistSans } from "@/lib/utils";
 
 const audiences = [
   {
@@ -32,7 +33,7 @@ type TAudience = {
 
 function AudienceCard({ item }: { item: TAudience }) {
   return (
-    <div className="relative h-[300px] w-full max-w-[280px] overflow-hidden rounded-2xl bg-linear-to-b from-[#4a4a4a] to-[#1a1a1a] sm:h-82.5">
+    <div className="relative h-[380px] w-full max-w-[390px] overflow-hidden rounded-[28px] bg-linear-to-b from-[#4a4a4a] to-[#1a1a1a] sm:h-82.5 sm:max-w-[280px] sm:rounded-2xl">
       {/* image */}
       <img
         src={item.image}
@@ -44,12 +45,12 @@ function AudienceCard({ item }: { item: TAudience }) {
       <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
       {/* content */}
-      <div className="absolute bottom-4 left-4 right-4">
-        <h3 className="text-[#E6CF7A] text-[20px] leading-tight font-medium">
+      <div className="absolute bottom-6 left-6 right-6 sm:bottom-4 sm:left-4 sm:right-4">
+        <h3 className="text-[24px] font-medium leading-tight text-[#E6CF7A] sm:text-[20px]">
           {item.title}
         </h3>
 
-        <div className="mt-4 w-full h-0.5 bg-white/80 rounded-full" />
+        <div className="mt-5 h-0.5 w-full rounded-full bg-white/80 sm:mt-4" />
       </div>
     </div>
   );
@@ -84,14 +85,12 @@ export default function AudienceSection() {
             <RedirectButton text="Expertise" IconType={ArrowDownRight} />
 
             {/* heading */}
-            <div className="mt-8 text-center">
-              <h2 className="font-mono text-[38px] leading-none text-white sm:text-[54px]">
-                Who Do We
-              </h2>
+            <div
+              className={`mt-8 text-center text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap ${geistSans.className}`}
+            >
+              <h2 className="text-white">Who Do We</h2>
 
-              <h2 className="font-mono text-[38px] leading-none text-[#9B9B9B] sm:text-[54px]">
-                Work With?
-              </h2>
+              <h2 className="text-[#9B9B9B]">Work With?</h2>
             </div>
           </div>
 
@@ -104,7 +103,9 @@ export default function AudienceSection() {
 
           {/* bottom text */}
           <div className="mt-20 flex flex-col items-center">
-            <h3 className="font-mono text-center text-[34px] leading-tight text-[#BDBDBD] sm:text-[48px] lg:text-[56px]">
+            <h3
+              className={`text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap text-[#BDBDBD] ${geistSans.className}`}
+            >
               Serious Projects Begin With Clarity.
             </h3>
 

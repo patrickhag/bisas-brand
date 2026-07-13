@@ -1,3 +1,4 @@
+import { geistSans } from "@/lib/utils";
 import { ArrowDownRight } from "lucide-react";
 import Image from "next/image";
 
@@ -45,28 +46,28 @@ function ValueCard({ item }: { item: TValue }) {
         justify-between rounded-[28px]
         border border-[#D8D8D8]
         bg-white
-        p-5
-        ${isTall ? "min-h-[360px] sm:min-h-[430px] lg:col-span-2 xl:col-span-1 xl:min-h-[470px]" : "min-h-[320px] sm:min-h-[360px] xl:mt-6 xl:min-h-[405px]"}
+        p-4
+        ${isTall ? "min-h-[300px] sm:min-h-[360px] lg:col-span-2 xl:col-span-1 xl:min-h-[390px]" : "min-h-[270px] sm:min-h-[310px] xl:mt-5 xl:min-h-[335px]"}
       `}
     >
       <div className="flex flex-1 items-center justify-center">
         <Image
           src={item.image}
           alt=""
-          width={300}
-          height={230}
+          width={260}
+          height={200}
           className={`object-contain ${
-            isTall ? "h-[215px] w-full" : "h-[190px] w-full"
+            isTall ? "h-[175px] w-full" : "h-[150px] w-full"
           }`}
         />
       </div>
 
       <div>
-        <h3 className="text-2xl font-medium leading-tight text-[#2B2B2B] md:text-[30px] xl:text-[32px]">
+        <h3 className="text-[22px] font-medium leading-tight text-[#2B2B2B] md:text-[26px] xl:text-[28px]">
           {item.title1}
         </h3>
 
-        <h3 className="text-2xl font-medium leading-tight text-[#E4CC72] md:text-[30px] xl:text-[32px]">
+        <h3 className="text-[22px] font-medium leading-tight text-[#E4CC72] md:text-[26px] xl:text-[28px]">
           {item.title2}
         </h3>
       </div>
@@ -85,8 +86,10 @@ export default function ApproachSection() {
             <ArrowDownRight size={15} />
           </button>
 
-          <h2 className="font-mono text-[34px] text-[#3E3E3E] sm:text-[42px]">
-            Our Approach
+          <h2
+            className={`font-mono text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap ${geistSans.className}`}
+          >
+            Our <span className="text-[#8A8A8A]">Approach</span>
           </h2>
         </div>
 
