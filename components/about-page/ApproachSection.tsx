@@ -6,23 +6,23 @@ const values = [
   {
     title1: "Professional Oversight",
     title2: "Over Assumptions",
-    image: "/images/value-1.png",
+    image: "/images/professional-oversight.png",
     tall: true,
   },
   {
     title1: "Discipline Over",
     title2: "Improvisation",
-    image: "/images/value-2.png",
+    image: "/images/discipline.png",
   },
   {
     title1: "Accountability",
     title2: "Over Excuses",
-    image: "/images/value-3.png",
+    image: "/images/accountability.png",
   },
   {
     title1: "Clarity Over",
     title2: "Complexity",
-    image: "/images/value-4.png",
+    image: "/images/clarity.png",
     tall: true,
   },
 ];

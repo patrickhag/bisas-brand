@@ -10,19 +10,19 @@ import { geistSans } from "@/lib/utils";
 const audiences = [
   {
     title: "Diaspora Property Owners",
-    image: "/images/person-1.png",
+    image: "/images/diaspora.jpg",
   },
   {
     title: "Executives And Professionals",
-    image: "/images/person-2.png",
+    image: "/images/executives.jpeg",
   },
   {
     title: "Real Estate Investors",
-    image: "/images/person-3.png",
+    image: "/images/real-state-agents.jpg",
   },
   {
-    title: "Serious Clients With Defined Budgets",
-    image: "/images/person-4.png",
+    title: "Clients With Defined Budgets",
+    image: "/images/person-1.png",
   },
 ];
 
@@ -38,7 +38,7 @@ function AudienceCard({ item }: { item: TAudience }) {
       <img
         src={item.image}
         alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 h-full w-full object-contain object-bottom xl:object-cover xl:object-center"
       />
 
       {/* subtle dark overlay for text readability */}
@@ -46,7 +46,7 @@ function AudienceCard({ item }: { item: TAudience }) {
 
       {/* content */}
       <div className="absolute bottom-6 left-6 right-6 sm:bottom-4 sm:left-4 sm:right-4">
-        <h3 className="text-[24px] font-medium leading-tight text-[#E6CF7A] sm:text-[20px]">
+        <h3 className="whitespace-nowrap text-[18px] font-medium leading-tight text-[#E6CF7A]">
           {item.title}
         </h3>
 

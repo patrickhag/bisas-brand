@@ -178,4 +178,49 @@
   .animate-service-icon-shot {
     animation: service-icon-shot 220ms ease-out both;
   }
+
+  @keyframes hero-main-bg-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(34px) scale(0.96);
+      filter: blur(6px);
+    }
+    55% {
+      opacity: 1;
+      filter: blur(0);
+    }
+    100% {
+      opacity: 0.95;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  .animate-hero-main-bg-enter {
+    animation: hero-main-bg-enter 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: bottom center;
+    will-change: opacity, transform, filter;
+  }
+
+  @keyframes hero-main-bg-float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-hero-main-bg-float {
+    animation: hero-main-bg-float 4.8s ease-in-out 900ms infinite;
+    transform-origin: bottom center;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-hero-main-bg-enter,
+    .animate-hero-main-bg-float {
+      animation: none;
+    }
+  }
 }

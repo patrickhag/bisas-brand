@@ -31,7 +31,7 @@ export default function IntroSection({
           </h1>
         </div>
 
-        <div className="mt-8 max-w-4xl mx-auto">
+        <div className="mx-auto mt-8 max-w-4xl text-center">
           {paragraphs.map((text, index) => (
             <p
               key={index}

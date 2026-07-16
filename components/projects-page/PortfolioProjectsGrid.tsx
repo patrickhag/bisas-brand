@@ -26,6 +26,7 @@ export function PortfolioProjectsGrid({
   const searchParams = useSearchParams();
   const projectIdFromUrl = searchParams.get("project");
   const hasAutoOpenedProject = useRef(false);
+  const projectsStartRef = useRef<HTMLDivElement>(null);
 
   const shouldShowControls = projects.length > PROJECTS_PER_PAGE;
   const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -39,7 +40,6 @@ export function PortfolioProjectsGrid({
         project.category,
         project.description,
         project.address,
-        project.cost,
         ...project.tags,
       ]
         .join(" ")
@@ -66,6 +66,30 @@ export function PortfolioProjectsGrid({
   function openProject(project: PortfolioProject) {
     setSelectedProject(project);
     setDialogOpen(true);
+  }
+
+  function changePage(page: number) {
+    if (page === currentPage) return;
+
+    setCurrentPage(page);
+    window.requestAnimationFrame(() => {
+      const projectsStart = projectsStartRef.current;
+      if (!projectsStart) return;
+
+      const headerHeight = Math.max(
+        0,
+        ...Array.from(
+          document.querySelectorAll<HTMLElement>("[data-site-header]"),
+        ).map((header) => header.offsetHeight),
+      );
+      const projectsTop =
+        projectsStart.getBoundingClientRect().top + window.scrollY;
+
+      window.scrollTo({
+        top: Math.max(0, projectsTop - headerHeight),
+        behavior: "smooth",
+      });
+    });
   }
 
   useEffect(() => {
@@ -114,33 +138,35 @@ export function PortfolioProjectsGrid({
             </div>
           )}
 
-          {projects.length === 0 ? (
-            <div className="py-32 text-center">
-              <p className="font-mono text-lg text-[#6A6A6A]">
-                No projects published yet.
-              </p>
-              <p className="mt-2 font-mono text-sm text-[#999]">
-                Check back soon for our latest work.
-              </p>
-            </div>
-          ) : pageProjects.length === 0 ? (
-            <div className="py-32 text-center">
-              <p className="font-mono text-lg text-[#6A6A6A]">
-                No projects match your search.
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-x-14 gap-y-16 lg:grid-cols-2">
-              {pageProjects.map((project, index) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={index}
-                  onSelect={() => openProject(project)}
-                />
-              ))}
-            </div>
-          )}
+          <div ref={projectsStartRef}>
+            {projects.length === 0 ? (
+              <div className="py-32 text-center">
+                <p className="font-mono text-lg text-[#6A6A6A]">
+                  No projects published yet.
+                </p>
+                <p className="mt-2 font-mono text-sm text-[#999]">
+                  Check back soon for our latest work.
+                </p>
+              </div>
+            ) : pageProjects.length === 0 ? (
+              <div className="py-32 text-center">
+                <p className="font-mono text-lg text-[#6A6A6A]">
+                  No projects match your search.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-x-14 gap-y-16 lg:grid-cols-2">
+                {pageProjects.map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    onSelect={() => openProject(project)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
 
           {shouldShowControls && totalPages > 1 && (
             <div className="mt-16 flex items-center justify-center gap-3">
@@ -152,7 +178,7 @@ export function PortfolioProjectsGrid({
                   <button
                     key={page}
                     type="button"
-                    onClick={() => setCurrentPage(page)}
+                    onClick={() => changePage(page)}
                     className={`size-11 rounded-full border font-mono text-sm transition ${
                       isActive
                         ? "border-[#2C2C2C] bg-[#2C2C2C] text-[#D9C36F]"
@@ -197,9 +223,7 @@ function ProjectCard({
   const isReversed = index % 2 === 1;
   const isLarge = index >= 2;
   const address = project.address || "Rwanda";
-  const tags = [project.category, project.cost, ...project.tags].filter(
-    Boolean,
-  );
+  const tags = [project.category, ...project.tags].filter(Boolean);
 
   return (
     <article
@@ -231,21 +255,25 @@ function ProjectCard({
       </div>
 
       <div
-        className={`flex min-h-full flex-col p-5 md:p-6 ${
-          isReversed ? "items-end text-right md:order-1" : ""
+        className={`flex min-h-0 flex-col overflow-hidden p-5 md:p-6 ${
+          isReversed ? "md:order-1 md:items-end md:text-right" : ""
         }`}
       >
         <div
           className={`flex w-full items-start gap-4 ${
-            isReversed ? "justify-end" : "justify-between"
+            isReversed ? "justify-between md:justify-end" : "justify-between"
           }`}
         >
-          {isReversed && <ProjectArrow />}
+          {isReversed && (
+            <div className="hidden md:block">
+              <ProjectArrow />
+            </div>
+          )}
 
           <div>
             <h3
               className={`font-mono font-semibold leading-none text-[#2C2C2C] ${
-                isLarge ? "text-[34px]" : "text-[22px]"
+                isLarge ? "text-[34px]" : "text-[34px] md:text-[22px]"
               } ${geistSans.className}`}
             >
               {project.name}
@@ -253,12 +281,12 @@ function ProjectCard({
 
             <div
               className={`mt-3 flex flex-wrap gap-2 ${
-                isReversed ? "justify-end" : ""
+                isReversed ? "md:justify-end" : ""
               }`}
             >
               <span
                 className={`line-clamp-2 max-w-44 rounded-full border border-[#D8D8D8] bg-white px-3 py-1 font-mono leading-tight text-[#5A5A5A] ${
-                  isLarge ? "text-sm" : "text-xs"
+                  isLarge ? "text-sm" : "text-sm md:text-xs"
                 }`}
               >
                 {address}
@@ -268,7 +296,7 @@ function ProjectCard({
                 <span
                   key={`${tag}-${tagIndex}`}
                   className={`line-clamp-1 rounded-full border border-[#D8D8D8] bg-white px-3 py-1 font-mono text-[#5A5A5A] ${
-                    isLarge ? "text-sm" : "text-xs"
+                    isLarge ? "text-sm" : "text-sm md:text-xs"
                   }`}
                 >
                   {tag}
@@ -282,9 +310,11 @@ function ProjectCard({
 
         <p
           dir="ltr"
-          className={`mt-auto line-clamp-5 rounded-[10px] px-2 py-2 font-mono leading-snug text-[#6A6A6A] ${
-            isLarge ? "max-w-80 text-[17px]" : "max-w-80 text-sm"
-          } ${isReversed ? "text-right" : "text-left"}`}
+          className={`mt-auto overflow-hidden rounded-[10px] px-2 py-2 font-mono leading-snug text-[#6A6A6A] ${
+            isLarge ? "max-w-80 text-[17px]" : "max-w-80 text-[17px] md:text-sm"
+          } ${
+            isLarge ? "line-clamp-5" : "line-clamp-5 md:line-clamp-4"
+          } ${isReversed ? "text-left md:text-right" : "text-left"}`}
         >
           {project.description ||
             "Client represented from planning through execution, including contractor coordination, quality control, and progress reporting."}

@@ -16,7 +16,7 @@ export default function ContactUsPage() {
         titlePrefix="Contact "
         titleHighlight="Boraland"
         paragraphs={[
-          "For serious project inquiries, please reach out using the details below.",
+          "For project inquiries, please reach out using the details below.",
         ]}
       />
       <ContactSection />

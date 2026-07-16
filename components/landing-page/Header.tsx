@@ -76,6 +76,7 @@ export default function Header() {
   return (
     <>
       <nav
+        data-site-header
         className={`sticky top-0 z-50 hidden bg-white/80 px-8 py-4 backdrop-blur-xl transition-transform duration-300 lg:block ${
           visible ? "translate-y-0" : "-translate-y-full"
         } ${roboto.className}`}
@@ -127,6 +128,7 @@ export default function Header() {
       </nav>
 
       <nav
+        data-site-header
         className={`sticky top-0 z-50 flex items-center justify-between bg-white/45 px-4 py-4 shadow-[0_12px_40px_rgba(18,18,18,0.08),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-2xl backdrop-saturate-150 lg:hidden ${roboto.className}`}
         aria-label="Mobile navigation"
       >

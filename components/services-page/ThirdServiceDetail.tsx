@@ -39,8 +39,8 @@ function RequirementCard({ item }: { item: TItem }) {
   const Icon = item.icon;
 
   return (
-    <div className="flex w-full max-w-[280px] flex-col items-center sm:max-w-[220px]">
-      <div className="flex h-[190px] w-full flex-col justify-between rounded-[22px] bg-white p-5 sm:h-[180px] sm:p-5">
+    <div className="flex w-full max-w-[300px] flex-col items-center sm:max-w-[280px]">
+      <div className="flex h-[210px] w-full flex-col justify-between rounded-[22px] bg-white p-5 sm:h-[220px] sm:p-6">
         {/* top number */}
         <span className="text-[30px] font-light text-[#2B2B2B] sm:text-[26px]">
           {item.number}
@@ -49,9 +49,9 @@ function RequirementCard({ item }: { item: TItem }) {
         {/* center icon */}
         <div className="flex flex-1 items-center justify-center">
           <Icon
-            size={54}
+            size={86}
             strokeWidth={1.6}
-            className="text-[#E4CC72] sm:size-12"
+            className="text-[#E4CC72] sm:size-22"
           />
         </div>
       </div>

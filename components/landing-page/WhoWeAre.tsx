@@ -1,10 +1,14 @@
 import { ArrowDown, ArrowDownRight } from "lucide-react";
 import { RedirectButton } from "../RedirectButton";
 import { geistSans } from "@/lib/utils";
+import Link from "next/link";
 
 export default function whoWeAreSection() {
   return (
-    <section className="relative isolate min-h-screen bg-[#2C2C2C] overflow-hidden flex items-center justify-center px-6">
+    <section
+      id="who-we-are"
+      className="relative isolate min-h-screen bg-[#2C2C2C] overflow-hidden flex items-center justify-center px-6"
+    >
       {/* Background watermark */}
       <div
         aria-hidden="true"
@@ -21,7 +25,9 @@ export default function whoWeAreSection() {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
         {/* Top button */}
-        <RedirectButton text="What we do" IconType={ArrowDownRight} />
+        <div className="-mt-6 sm:-mt-8">
+          <RedirectButton text="What we do" IconType={ArrowDownRight} />
+        </div>
         <div className={`${geistSans.className} mt-5`}>
           {/* Main heading */}
           <h2 className="max-w-4xl text-2xl leading-tight sm:text-[30px] lg:whitespace-nowrap text-white">
@@ -55,11 +61,16 @@ export default function whoWeAreSection() {
           especially for clients who cannot be present full-time.
         </p>
 
-        {/* Bottom arrow */}
-        <button className="mt-16 w-12 h-12 rounded-full backdrop-blur-xl border border-[#D8C07A] flex items-center justify-center text-[#D8C07A] hover:bg-[#D8C07A]/10 transition animate-bounce">
-          <ArrowDown />
-        </button>
       </div>
+
+      {/* Bottom arrow */}
+      <Link
+        href="#services-overview"
+        aria-label="Scroll to services overview"
+        className="absolute bottom-6 left-1/2 z-10 flex h-12 w-12 -translate-x-1/2 animate-bounce items-center justify-center rounded-full border border-[#D8C07A] text-[#D8C07A] backdrop-blur-xl transition hover:bg-[#D8C07A]/10 sm:bottom-8"
+      >
+        <ArrowDown />
+      </Link>
     </section>
   );
 }

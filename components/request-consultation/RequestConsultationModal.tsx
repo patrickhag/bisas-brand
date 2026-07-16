@@ -96,7 +96,7 @@ export function RequestConsultationModal({
         aria-modal="true"
         aria-labelledby="request-consultation-title"
         aria-describedby="request-consultation-description"
-        className="relative max-h-[92vh] w-full max-w-330 overflow-y-auto rounded-[24px] border border-[#D8D8D8] bg-white shadow-[0_24px_80px_rgba(0,0,0,0.2)]"
+        className="relative max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-[24px] border border-[#D8D8D8] bg-white shadow-[0_24px_80px_rgba(0,0,0,0.2)]"
         onClick={(event) => event.stopPropagation()}
       >
         <button
@@ -108,8 +108,8 @@ export function RequestConsultationModal({
           <X size={20} />
         </button>
 
-        <div className="relative overflow-hidden rounded-[24px] px-4 py-12 sm:px-6 md:px-12 md:py-14 lg:px-16">
-          <div className="mb-14 flex items-center justify-center gap-3">
+        <div className="relative overflow-hidden rounded-[24px] px-4 py-10 sm:px-8 md:px-12 md:py-12">
+          <div className="mb-10 flex items-center justify-center gap-3">
             <Image
               src="/logo.svg"
               alt="Boraland logo"
@@ -131,11 +131,8 @@ export function RequestConsultationModal({
             type, and a brief project description.
           </p>
 
-          <form
-            className="mx-auto max-w-[1120px]"
-            onSubmit={handleSubmit(sendRequest)}
-          >
-            <div className="grid gap-4 md:grid-cols-2">
+          <form className="w-full" onSubmit={handleSubmit(sendRequest)}>
+            <div className="grid gap-4">
               <label className="block">
                 <span className="mb-3 block font-mono text-lg text-[#2C2C2C]">
                   Email
@@ -171,9 +168,13 @@ export function RequestConsultationModal({
                       <SelectTrigger className="h-16 min-h-16 w-full rounded-xl border-[#D8D8D8] bg-white px-4 py-0 font-mono text-base text-[#2C2C2C] shadow-none focus-visible:border-[#2C2C2C] focus-visible:ring-[#2C2C2C]/10">
                         <SelectValue placeholder="Add Consultation Type Here." />
                       </SelectTrigger>
-                      <SelectContent className="rounded-xl border-[#D8D8D8] bg-white font-mono text-[#2C2C2C]">
+                      <SelectContent className="w-(--anchor-width) rounded-xl border-[#D8D8D8] bg-white p-1.5 font-mono text-[#2C2C2C]">
                         {consultationTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
+                          <SelectItem
+                            key={type}
+                            value={type}
+                            className="min-h-12 rounded-lg px-3 py-2.5 text-base"
+                          >
                             {type}
                           </SelectItem>
                         ))}

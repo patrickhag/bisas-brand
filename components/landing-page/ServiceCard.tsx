@@ -6,6 +6,7 @@ import ServiceOverviewCard from "./ServiceOverviewCard";
 
 export default async function ServicesSection() {
   const services = await getServices();
+
   return (
     <section
       id="services-overview"

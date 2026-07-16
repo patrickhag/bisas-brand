@@ -1,5 +1,3 @@
-"use client";
-
 import { geistSans } from "@/lib/utils";
 import { ArrowDown } from "lucide-react";
 import Image from "next/image";
@@ -9,13 +7,13 @@ export default function HeroSection() {
     <section className="relative -mt-px flex min-h-[calc(100svh-72px)] flex-1 flex-col overflow-hidden bg-white pt-px">
       {/* Headline */}
       <div
-        className={`relative z-10 px-5 pb-6 pt-10 text-center sm:px-8 sm:pt-14 lg:pt-16 ${geistSans.className}`}
+        className={`absolute inset-x-0 top-36 z-10 px-5 pb-6 text-center font-[family-name:var(--font-roboto)] sm:top-40 sm:px-8 md:relative md:top-auto md:pt-14 md:font-[family-name:var(--font-geist-sans)] lg:pt-16 ${geistSans.variable}`}
       >
-        <h1 className="text-4xl leading-[1.05] tracking-tight min-[390px]:text-[42px] sm:text-6xl lg:text-7xl">
+        <h1 className="text-[1.75rem] leading-[1.05] tracking-tight md:text-4xl lg:text-7xl">
           <span className="text-[#8A8A8A] font-light">Your Property In </span>
           <span className="text-[#2C2C2C] font-bold">Rwanda</span>
         </h1>
-        <h2 className="mx-auto mt-3 max-w-3xl text-xl tracking-tight text-[#2C2C2C] sm:text-2xl md:text-3xl">
+        <h2 className="mx-auto mt-2 max-w-[92vw] text-[clamp(1.05rem,4.25vw,1.2rem)] leading-snug tracking-tight text-[#2C2C2C] sm:mt-3 sm:max-w-4xl sm:text-3xl md:text-3xl">
           <span className="font-bold">Protected</span>{" "}
           <span className="text-[#8A8A8A]">
             By Engineers Who Are Actually There.
@@ -23,26 +21,28 @@ export default function HeroSection() {
         </h2>
       </div>
 
-      {/* Hero background cover photo */}
-      <div className="absolute inset-0 z-0">
+      {/* Construction site image behind the headline */}
+      <div className="absolute bottom-0 left-1/2 z-5 h-[88%] w-[128%] max-w-none -translate-x-1/2 px-0 sm:h-[84%] sm:w-full sm:max-w-6xl sm:px-8">
+        <div className="animate-hero-main-bg-float absolute inset-0">
+          <Image
+            src="/images/main-background-cutout.png"
+            fill
+            sizes="(min-width: 1280px) 1100px, (min-width: 640px) 100vw, 128vw"
+            className="animate-hero-main-bg-enter object-contain object-bottom opacity-95 drop-shadow-[0_34px_42px_rgba(65,65,65,0.18)]"
+            alt="Bola land main background-image"
+            priority
+          />
+        </div>
+      </div>
+
+      {/* Hero cover photo overlay */}
+      <div className="absolute inset-0 z-6 opacity-45 mix-blend-multiply">
         <Image
           src="/images/main-background-cover-photo.jpg"
           alt="Boraland hero background"
           fill
           priority
           className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-white/20" />
-      </div>
-
-      {/* Construction site image behind the headline */}
-      <div className="absolute bottom-0 left-1/2 z-[5] h-[68%] w-[94%] max-w-5xl -translate-x-1/2 sm:h-3/4 sm:w-[90%]">
-        <Image
-          src="/images/main-background.png"
-          fill
-          className="rounded-t-2xl object-cover object-center"
-          alt="Bola land main background-image"
-          priority
         />
       </div>
 
@@ -51,12 +51,13 @@ export default function HeroSection() {
         {/* Bottom bar with floating elements */}
         <div className="absolute inset-x-0 bottom-4 z-20 flex items-center justify-end px-3 sm:bottom-6 sm:px-8 lg:px-10 mb-3">
           {/* Scroll arrow */}
-          <button
+          <a
+            href="#who-we-are"
             aria-label="Scroll to the next section"
             className="absolute left-1/2 flex size-11 -translate-x-1/2 animate-bounce items-center justify-center rounded-full border border-[#e2b82d] backdrop-blur-xl transition-colors sm:size-12"
           >
             <ArrowDown size={20} className="text-[#e2b82d] font-extrabold" />
-          </button>
+          </a>
         </div>
       </div>
     </section>

@@ -30,22 +30,17 @@ export default function FounderSection() {
               alt="Founder"
               width={487}
               height={459}
-              className="absolute bottom-0 right-[-44px] z-10 h-[92%] w-auto object-contain sm:right-[-18px] sm:h-[122%] md:right-[-8px] md:h-[128%]"
+              className="absolute bottom-0 right-[-44px] z-10 h-[92%] w-auto object-contain sm:right-[-18px] sm:h-[122%] md:right-0 md:h-[128%]"
               priority
             />
 
             {/* overlay text */}
             <div className="absolute inset-x-5 bottom-6 z-20 sm:inset-x-auto sm:bottom-8 md:bottom-10 md:left-12">
-              <h3 className="max-w-56 text-2xl font-medium leading-tight sm:max-w-none sm:text-[28px] sm:leading-none md:text-[40px]">
-                <span className="text-[#E4CC72]">Founder’s</span>{" "}
-                <span className="text-white underline">Message</span>
-              </h3>
-
               {/* name pill */}
               <div className="mt-6 flex w-fit max-w-[calc(100vw-4rem)] items-center gap-3 rounded-full border border-[#666] bg-[#5D5D5D]/80 px-3 py-2 backdrop-blur-sm sm:px-4">
                 {/* avatar */}
                 <Image
-                  src="/founder-pic.png"
+                  src="/images/co-founder.png"
                   alt=""
                   width={40}
                   height={40}
@@ -62,7 +57,7 @@ export default function FounderSection() {
           {/* RIGHT CONTENT */}
           <div>
             <h3 className="font-mono text-[34px] text-[#3B3B3B] md:text-[48px]">
-              Founder’ <span className="text-[#8A8A8A]">Message</span>
+              Founder’s <span className="text-[#8A8A8A]">Message</span>
             </h3>
 
             <div className="mt-9 max-w-xl space-y-7 text-[16px] leading-relaxed text-[#3F3F3F] md:text-[18px]">
