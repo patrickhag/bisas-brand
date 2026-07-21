@@ -34,7 +34,6 @@ export async function POST(request: Request) {
         email,
         inquiryType: "Consultation Request",
         message,
-        to: "boralandltd@gmail.com",
         submittedAt: consultationRequest.createdAt,
       });
     } catch (emailError) {

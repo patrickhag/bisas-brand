@@ -31,15 +31,33 @@ type TAudience = {
   image: string;
 };
 
-function AudienceCard({ item }: { item: TAudience }) {
+function AudienceCard({
+  item,
+  contrastingMobileBackground = false,
+}: {
+  item: TAudience;
+  contrastingMobileBackground?: boolean;
+}) {
   return (
-    <div className="relative h-[380px] w-full max-w-[390px] overflow-hidden rounded-[28px] bg-linear-to-b from-[#4a4a4a] to-[#1a1a1a] sm:h-82.5 sm:max-w-[280px] sm:rounded-2xl">
+    <div
+      className={`relative h-[380px] w-full max-w-[390px] overflow-hidden rounded-[28px] bg-linear-to-b sm:h-82.5 sm:max-w-[280px] sm:rounded-2xl ${
+        contrastingMobileBackground
+          ? "from-[#6B5A3E] to-[#241F18] sm:from-[#4a4a4a] sm:to-[#1a1a1a]"
+          : "from-[#4a4a4a] to-[#1a1a1a]"
+      }`}
+    >
       {/* image */}
       <img
         src={item.image}
         alt={item.title}
-        className="absolute inset-0 h-full w-full object-contain object-bottom xl:object-cover xl:object-center"
+        className={`absolute inset-0 h-full w-full object-contain object-bottom xl:object-cover xl:object-center ${
+          contrastingMobileBackground ? "scale-[0.88] sm:scale-100" : ""
+        }`}
       />
+
+      {contrastingMobileBackground && (
+        <div className="absolute inset-0 bg-linear-to-r from-black/65 via-transparent to-black/65 sm:hidden" />
+      )}
 
       {/* subtle dark overlay for text readability */}
       <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
@@ -97,7 +115,11 @@ export default function AudienceSection() {
           {/* cards */}
           <div className="mt-14 grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 lg:mt-20 xl:grid-cols-4">
             {audiences.map((item, index) => (
-              <AudienceCard key={index} item={item} />
+              <AudienceCard
+                key={item.title}
+                item={item}
+                contrastingMobileBackground={index === audiences.length - 1}
+              />
             ))}
           </div>
 

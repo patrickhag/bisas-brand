@@ -7,8 +7,8 @@ import {
   type InquiryNotificationEmailProps,
 } from "@/emails/InquiryNotificationEmail";
 import {
-  getMailerTransport,
   getNotificationRecipient,
+  getResendClient,
   getSenderAddress,
 } from "@/lib/email/mailer";
 
@@ -60,9 +60,9 @@ export async function sendInquiryNotificationEmail(
   const subject = `New ${input.inquiryType} from ${input.email}`;
   const html = await render(<InquiryNotificationEmail {...emailProps} />);
   const text = getPlainTextMessage(emailProps);
-  const transport = getMailerTransport();
+  const resend = getResendClient();
 
-  const result = await transport.sendMail({
+  const { data, error } = await resend.emails.send({
     from: getSenderAddress(),
     html,
     replyTo: input.email,
@@ -71,5 +71,11 @@ export async function sendInquiryNotificationEmail(
     to: input.to ?? getNotificationRecipient(),
   });
 
-  return { id: result.messageId, skipped: false };
+  if (error) {
+    throw new Error(
+      `Resend failed to send inquiry notification: ${error.message}`,
+    );
+  }
+
+  return { id: data?.id, skipped: false };
 }

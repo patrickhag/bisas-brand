@@ -62,15 +62,18 @@ export default function FounderSection() {
 
             <div className="mt-9 max-w-xl space-y-7 text-[16px] leading-relaxed text-[#3F3F3F] md:text-[18px]">
               <p>
-                Boraland is led by a civil engineer and project manager with
-                over six years of experience in construction supervision,
-                project delivery, and client representation.
+                At Boraland, I believe that building should bring confidence,
+                not uncertainty. Every project represents someone's dream,
+                investment, and future, and I take that responsibility
+                personally. I find my greatest satisfaction in protecting my
+                clients' investments through honesty, transparency, and
+                uncompromising quality, so they can move forward with complete
+                peace of mind.
               </p>
 
               <p>
-                As Principal Engineer, the role is to protect client investments
-                by enforcing quality standards, managing risk, and coordinating
-                all technical and contractual aspects of construction.
+                My vision is simply to make every client feel secure, informed,
+                and proud of what we build together.
               </p>
             </div>
           </div>

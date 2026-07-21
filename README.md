@@ -16,6 +16,18 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Email configuration
+
+Email is sent through [Resend](https://resend.com). Configure these environment variables locally and in your deployment:
+
+```bash
+RESEND_API_KEY=re_...
+EMAIL_FROM="Boraland <hello@your-verified-domain.com>"
+EMAIL_NOTIFICATION_TO=team@example.com
+```
+
+`EMAIL_FROM` must use a domain verified in Resend. `EMAIL_NOTIFICATION_TO` receives contact and consultation notifications.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

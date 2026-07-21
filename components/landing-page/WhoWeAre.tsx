@@ -38,10 +38,12 @@ export default function whoWeAreSection() {
         </div>
 
         {/* Paragraph 1 */}
-        <p className="mt-14 text-gray-300 text-base md:text-lg leading-relaxed max-w-3xl">
+        <p className="mt-14 max-w-4xl text-base leading-relaxed text-gray-300 md:text-lg">
           You have invested in land, in a dream, in Rwanda’s future. But you are
           not there every day.{" "}
-          <span className="font-semibold text-[#D8C07A]">We are.</span>
+          <span className="whitespace-nowrap font-semibold text-[#D8C07A]">
+            We are.
+          </span>
         </p>
 
         {/* Paragraph 2 */}
@@ -60,7 +62,6 @@ export default function whoWeAreSection() {
           </span>{" "}
           especially for clients who cannot be present full-time.
         </p>
-
       </div>
 
       {/* Bottom arrow */}

@@ -1,36 +1,25 @@
 import "server-only";
 
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-function getEmailCredentials() {
-  const user = process.env.EMAIL_USER;
-  const pass = process.env.EMAIL_PASSWORD;
+function getRequiredEnv(name: string) {
+  const value = process.env[name];
 
-  if (!user || !pass) {
-    throw new Error("EMAIL_USER and EMAIL_PASSWORD must be configured.");
+  if (!value) {
+    throw new Error(`${name} must be configured.`);
   }
 
-  return { pass, user };
+  return value;
 }
 
-export function getMailerTransport() {
-  const { pass, user } = getEmailCredentials();
-
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      pass,
-      user,
-    },
-  });
+export function getResendClient() {
+  return new Resend(getRequiredEnv("RESEND_API_KEY"));
 }
 
 export function getSenderAddress() {
-  const { user } = getEmailCredentials();
-  return `"Boraland" <${user}>`;
+  return getRequiredEnv("EMAIL_FROM");
 }
 
 export function getNotificationRecipient() {
-  const { user } = getEmailCredentials();
-  return user;
+  return getRequiredEnv("EMAIL_NOTIFICATION_TO");
 }

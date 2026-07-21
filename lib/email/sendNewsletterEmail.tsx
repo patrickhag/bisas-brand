@@ -3,7 +3,7 @@ import "server-only";
 import { render } from "@react-email/render";
 
 import { NewsletterEmail } from "@/emails/NewsletterEmail";
-import { getMailerTransport, getSenderAddress } from "@/lib/email/mailer";
+import { getResendClient, getSenderAddress } from "@/lib/email/mailer";
 
 type SendNewsletterEmailInput = {
   message: string;
@@ -19,9 +19,9 @@ export async function sendNewsletterEmail({
   const html = await render(
     <NewsletterEmail message={message} subject={subject} />,
   );
-  const transport = getMailerTransport();
+  const resend = getResendClient();
 
-  const result = await transport.sendMail({
+  const { data, error } = await resend.emails.send({
     from: getSenderAddress(),
     html,
     subject,
@@ -29,5 +29,9 @@ export async function sendNewsletterEmail({
     to,
   });
 
-  return result.messageId;
+  if (error) {
+    throw new Error(`Resend failed to send newsletter email: ${error.message}`);
+  }
+
+  return data?.id;
 }

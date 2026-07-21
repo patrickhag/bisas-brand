@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Loader2, Upload, X } from "lucide-react";
+import { upload } from "@vercel/blob/client";
 
 // ─── Types ──────────────────────────────────────
 
@@ -43,7 +44,7 @@ export default function ImageUploader({
   onImagesChange,
   maxFiles = 20,
   maxFileSize = 10 * 1024 * 1024, // 10MB
-  accept = "image/jpeg,image/png,image/webp,image/gif",
+  accept = "image/jpeg,image/png,image/webp",
 }: ImageUploaderProps) {
   const [uploadedUrls, setUploadedUrls] = useState<string[]>(initialImages);
   const [pendingFiles, setPendingFiles] = useState<PendingFile[]>([]);
@@ -113,7 +114,7 @@ export default function ImageUploader({
     setUploadedUrls((prev) => prev.filter((u) => u !== url));
   };
 
-  // ── Upload all pending via server FormData ────
+  // ── Upload all pending directly to Vercel Blob ─
 
   const handleUploadAll = async () => {
     if (pendingFiles.length === 0) return;
@@ -122,23 +123,15 @@ export default function ImageUploader({
     setError("");
 
     try {
-      const formData = new FormData();
-      pendingFiles.forEach((pf) => {
-        formData.append("files", pf.file);
-      });
-
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Upload failed");
-      }
-
-      const data = await res.json();
-      const urls: string[] = data.urls;
+      const blobs = await Promise.all(
+        pendingFiles.map(({ file }) =>
+          upload(file.name, file, {
+            access: "public",
+            handleUploadUrl: "/api/upload",
+          }),
+        ),
+      );
+      const urls = blobs.map((blob) => blob.url);
 
       setUploadedUrls((prev) => [...prev, ...urls]);
 
